@@ -1,0 +1,36 @@
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+
+  "userId": "2qweqwe",
+  "userPw": "qweqwe123",
+  "userName": "asdqwe",
+  "biznum": "1231512333",
+  "phNum": "01011512225",
+  "bizAddr1": "ddd",
+  "bizAddr2": "qwe",
+  "bizZip": "123",
+  "managename": "full",
+  "mgphnum": "01122523333",
+  "mgMail": "eetadev@naver.com",
+  "selected": 4,
+  "shopName": "ddddddd",
+  "shopPhNum": "01011112222",
+  "etc": ""
+}
+
+###
+POST http://localhost:5000/api/item
+Content-Type: application/x-www-form-urlencoded
+
+id=99&content=new-element
+
+###
+#여기는 테스트
+GET http://localhost:5000/test
+Accept: application/json
+
+#가입테스트
+POST http://localhost:5000/api/signup
+
