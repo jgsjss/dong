@@ -99,11 +99,8 @@ router.post('/refresh', function (req, res, next) {
                 refreshPayload = await new Promise((resolve, reject) => {
                     jwt.verify(refreshToken, auth.secret,
                         (err, decoded) => {
-
-
                             if (err) reject(err);
                             else resolve(decoded);
-
                         });
                 })
             } catch (err) {
@@ -137,7 +134,7 @@ router.post('/refresh', function (req, res, next) {
             }
             console.log("Access-Token Payload : ");
             console.log(accessPayload);
-            console.log("Access-Token Verify : " + errorMessageAT);
+            console.log("Access-Token Verify : " , errorMessageAT);
 
             if (errorMessageAT == "" && errorMessageRT == "") {
                 if (userid == accessPayload.userid && userid == refreshPayload.userid && result[0][0].refreshToken == refreshToken) {
