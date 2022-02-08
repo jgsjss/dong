@@ -48,19 +48,24 @@ router.post('/signup', function (req, res) {
         myarr.push([value])
         showarr.push([key, value])
     })
-    console.log(myMap)
-    console.log(showarr)
+    // console.log(myMap)
+    // console.log(showarr)
     console.log(myarr)
 
 
-    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?)'
-    let data = db.query(insertSql, myarr, function (err, rows, fields) {
+    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null)'
+     db.query(insertSql, myarr, function (err, rows, fields) {
+         console.log("======================",err)
+         console.log("======================",rows)
         if (err) {
             console.log(err)
             console.log(rows.usernum)
+            res.status(401).json(0)
         } else {
             // console.log(myMap)
+            console.log(res)
             res.status(200).json(1)
+
         }
     })
 

@@ -70,7 +70,7 @@ router.post('/login', function (req, res, next) {
                     let params = []
                     params.push(refreshToken, userid)
                     db.query(updateSql, params)
-                    result[0][0].refreshToken = refreshToken;
+                    // result[0][0].refreshToken = refreshToken;
                     res.json({success: true, accessToken: accessToken, refreshToken: refreshToken});
                 } else {
                     res.status(401).json({success: false, errormessage: 'token sign fail'});
@@ -81,7 +81,7 @@ router.post('/login', function (req, res, next) {
 })
 
 //토큰 재발급
-router.post('/refresh', function (req, res, next) {
+router.post(' /refresh', function (req, res, next) {
     console.log("REST API Post Method - Member JWT Refresh");
     const userid = req.body.userid;
     const accessToken = req.body.accessToken;
