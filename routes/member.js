@@ -11,12 +11,13 @@ router.post('/login', function (req, res, next) {
     const userid = req.body.userid;
     const userpw = req.body.userpw;
     let myarr = new Array();
-
     sql = 'select * from user where userid = ?'
     data = db.query(sql, userid)
-
     data.then(async result => {
         if (result[0][0] != null) {
+            let shopname = result[0][0].shopname;
+            let shopphnum = result[0][0].shopphnum;
+            let mgname = result[0][0].mgname;
             if (result[0][0].userpw == userpw) {
                 // Access-Token
                 let accessToken = '';
@@ -71,12 +72,14 @@ router.post('/login', function (req, res, next) {
                     params.push(refreshToken, userid)
                     db.query(updateSql, params)
                     // result[0][0].refreshToken = refreshToken;
-                    res.json({success: true, accessToken: accessToken, refreshToken: refreshToken});
+                    let mydata = { success: true, accessToken: accessToken, refreshToken: refreshToken, shopname: shopname, shopphnum: shopphnum, mgname: mgname  }
+                    res.json(mydata);
+                    console.log(mydata)
                 } else {
                     res.status(401).json({success: false, errormessage: 'token sign fail'});
                 }
             } else res.status(401).json({success: false, errormessage: 'ID와 비밀번호가 일치하지 않습니다.'})
-        } else res.status(401).json({success: false, errormessage: 'ID와 비밀번호가 일치하지 않습니다.'})
+        } else res.status(401).json({success: false, errormessage: '존재하지 않는 ID입니다.'})
     })
 })
 
@@ -110,7 +113,7 @@ router.post(' /refresh', function (req, res, next) {
             // 추후 사용자 정보 모두 조회 하여 사용? 대비
             // console.log("decoded = ", decoded)
             console.log(refreshPayload.userid)
-            // userid 가 아니라 userid임
+            // userId 가 아니라 userid임
             const userInfoQuery = 'select * from user where userid=?'
             const userInfo = db.query(userInfoQuery, refreshPayload.userid)
             "==================================="
