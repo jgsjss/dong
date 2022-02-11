@@ -134,7 +134,7 @@ router.post(' /refresh', function (req, res, next) {
             }
             console.log("Access-Token Payload : ");
             console.log(accessPayload);
-            console.log("Access-Token Verify : " , errorMessageAT);
+            console.log("Access-Token Verify : ", errorMessageAT);
 
             if (errorMessageAT == "" && errorMessageRT == "") {
                 if (userid == accessPayload.userid && userid == refreshPayload.userid && result[0][0].refreshToken == refreshToken) {
@@ -186,4 +186,11 @@ router.post(' /refresh', function (req, res, next) {
 
 })
 
+router.post(' /showdb', function (req, res, next) {
+    const data = db.query("select * from user")
+    data.then(async result => {
+        console.log(result[0][0])
+res.json(1)
+    })
+})
 module.exports = router;

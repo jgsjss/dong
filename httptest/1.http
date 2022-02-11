@@ -2,7 +2,6 @@ POST http://localhost:5000/api/signup
 Content-Type: application/json
 
 {
-
   "userId": "2qweqwe",
   "userPw": "qweqwe123",
   "userName": "asdqwe",
