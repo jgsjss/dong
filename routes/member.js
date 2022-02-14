@@ -25,16 +25,12 @@ router.post('/login', function (req, res, next) {
                 try {
                     accessToken = await new Promise((resolve, reject) => {
                         jwt.sign({
-                                userid: result[0][0].userid,
-                                userName: result[0][0].username
-                            }, auth.secret,
-                            {
-                                expiresIn: '1h'
-                            },
-                            (err, token) => {
-                                if (err) reject(err);
-                                else resolve(token);
-                            });
+                            userid: result[0][0].userid, userName: result[0][0].username
+                        }, auth.secret, {
+                            expiresIn: '1h'
+                        }, (err, token) => {
+                            if (err) reject(err); else resolve(token);
+                        });
                     });
                     // res.json({success: true, accessToken: accessToken});
                 } catch (err) {
@@ -48,16 +44,12 @@ router.post('/login', function (req, res, next) {
                 try {
                     refreshToken = await new Promise((resolve, reject) => {
                         jwt.sign({
-                                userid: result[0][0].userid,
-                            },
-                            auth.secret,
-                            {
-                                expiresIn: '1d',
-                            },
-                            (err, token) => {
-                                if (err) reject(err);
-                                else resolve(token);
-                            });
+                            userid: result[0][0].userid,
+                        }, auth.secret, {
+                            expiresIn: '1d',
+                        }, (err, token) => {
+                            if (err) reject(err); else resolve(token);
+                        });
                     });
                 } catch (err) {
                     errorMessageRT = err;
@@ -72,7 +64,14 @@ router.post('/login', function (req, res, next) {
                     params.push(refreshToken, userid)
                     db.query(updateSql, params)
                     // result[0][0].refreshToken = refreshToken;
-                    let mydata = { success: true, accessToken: accessToken, refreshToken: refreshToken, shopname: shopname, shopphnum: shopphnum, mgname: mgname  }
+                    let mydata = {
+                        success: true,
+                        accessToken: accessToken,
+                        refreshToken: refreshToken,
+                        shopname: shopname,
+                        shopphnum: shopphnum,
+                        mgname: mgname
+                    }
                     res.json(mydata);
                     console.log(mydata)
                 } else {
@@ -84,7 +83,7 @@ router.post('/login', function (req, res, next) {
 })
 
 //토큰 재발급
-router.post(' /refresh', function (req, res, next) {
+router.post('/refresh', function (req, res, next) {
     console.log("REST API Post Method - Member JWT Refresh");
     const userid = req.body.userid;
     const accessToken = req.body.accessToken;
@@ -100,11 +99,9 @@ router.post(' /refresh', function (req, res, next) {
             let errorMessageRT = '';
             try {
                 refreshPayload = await new Promise((resolve, reject) => {
-                    jwt.verify(refreshToken, auth.secret,
-                        (err, decoded) => {
-                            if (err) reject(err);
-                            else resolve(decoded);
-                        });
+                    jwt.verify(refreshToken, auth.secret, (err, decoded) => {
+                        if (err) reject(err); else resolve(decoded);
+                    });
                 })
             } catch (err) {
                 errorMessageRT = err;
@@ -126,11 +123,13 @@ router.post(' /refresh', function (req, res, next) {
 
             try {
                 accessPayload = await new Promise((resolve, reject) => {
-                    jwt.verify(accessToken, auth.secret, {ignoreExpiration: true},
-                        (err, decoded) => {
-                            if (err) reject(err)
-                            else resolve(decoded)
-                        });
+                    jwt.verify(accessToken, auth.secret, {ignoreExpiration: true}, (err, decoded) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve(decoded)
+                        }
+                    });
                 });
             } catch (err) {
                 errorMessageAT = err;
@@ -148,20 +147,16 @@ router.post(' /refresh', function (req, res, next) {
                     try {
                         accessToken = await new Promise((resolve, reject) => {
                             jwt.sign({
-                                    userid: result[0][0].userid,
-                                    username: result[0][0].username
-                                },
-                                auth.secret,
-                                {
-                                    expiresIn: '10m'
-                                },
-                                (err, token) => {
-                                    if (err) {
-                                        reject(err);
-                                    } else {
-                                        resolve(token);
-                                    }
-                                });
+                                userid: result[0][0].userid, username: result[0][0].username
+                            }, auth.secret, {
+                                expiresIn: '10m'
+                            }, (err, token) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(token);
+                                }
+                            });
                         });
                     } catch (err) {
                         errorMessageAT = err;
@@ -189,11 +184,11 @@ router.post(' /refresh', function (req, res, next) {
 
 })
 
-router.post(' /showdb', function (req, res, next) {
-    const data = db.query("select * from user")
-    data.then(async result => {
-        console.log(result[0][0])
-res.json(1)
-    })
+
+// *** 구조체 형식
+router.post('/db', async function (req, res) {
+    let [rows, fields] = await db.query("select * from user")
+    console.log('응답 객체 길이', rows.length)
+    res.status(200).json(rows)
 })
 module.exports = router;

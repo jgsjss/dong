@@ -5,6 +5,7 @@ const db = require('../../db/mysql')
 const upload = require('../../config/upload')
 const fs = require("fs");
 const _ = require("lodash");
+const {forEach} = require("lodash");
 // let sql = require('/db/sql')
 
 /* GET users listing. */
@@ -25,14 +26,18 @@ router.get('/get', function (req, res) {
     res.json(get)
 });
 
-router.get('/db', function (req, res) {
-    // let [rows, fields] = db.query('select * from user')
-    // console.log(rows, fields)
-    let data = db.query('select * from user').then((result) => {
+router.post('/db', async function (req, res) {
+   //  let [rows, fields] = db.query('select * from user')
+   // forEach(rows,(res)=>{
+   //     console.log(res)
+   // })
+
+    let data =await db.query('select * from user').then((result) => {
 
         console.log(result)
         res.json(result[0])
     })
+
 })
 
 router.post('/signup', function (req, res) {
