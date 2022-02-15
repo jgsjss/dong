@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {urlencoded, request} = require("express");
 const db = require('../../db/mysql')
-const upload = require('../../config/upload')
+const {upload, fileFilter} = require('../../config/upload')
 const fs = require("fs");
 const _ = require("lodash");
 const {forEach} = require("lodash");
@@ -58,7 +58,7 @@ router.post('/signup', function (req, res) {
     console.log(myarr)
 
 
-    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null)'
+    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null,null)'
      db.query(insertSql, myarr, function (err, rows, fields) {
          console.log("======================",err)
          console.log("======================",rows)
@@ -80,6 +80,12 @@ router.post('/upload', upload.single('image'), (req, res) => {
     // console.log("biznum =======> ", req.headers.biznum)
     res.send('ok')
 })
+
+
+
+
+
+
 //유저 id 탐색
 router.post('/isuser', function (req, res) {
     let userid = req.body.userid
@@ -102,6 +108,53 @@ router.post('/isuser', function (req, res) {
             return res.json(0)
         }
     })
+})
+
+//가입 신청 취소
+router.post('/deleteuser', async function (req, res) {
+    let userid = req.body.userid
+    let userpw = req.body.userpw
+    console.log(userid)
+    const sql = 'select * from user where userid=?'
+    const deletesql = 'delete from user where userid=?'
+
+    let data = db.query(sql, userid)
+    console.log(data)
+    await data.then(result => {
+        // const useridResult = result[0][0].userid
+        console.log('result: ',result[0][0])
+        if (result[0][0] != null) {
+            if (result[0][0].userpw == userpw) {
+                console.log('result: ',result[0][0].userpw)
+                try{  //'uploads/image' + result[0][0].biznum
+                    if (fs.existsSync("/uploads/image/" + result[0][0].biznum )) {
+                        fs.unlink(result[0][0].biznum)
+                        console.log('사업자등록증 삭제')
+                    }
+                    db.query(deletesql, userid)
+                } catch(err){
+                    console.log(err)
+                }
+                return res.json(1)
+            }else {
+                //비밀번호가 틀림
+                return res.json(0)
+            }
+        } else {
+            // console.log("탐색되지 않음")
+            return res.json(0)
+        }
+    })
+})
+
+//사진삭제 테스트 메소드
+router.post('/delPhoto', function(req, res){
+    let checkPath = fs.existsSync("/uploads/image/" + req.body.biznum)
+    // if (fs.existsSync("/uploads/image/" + req.body.biznum )) {
+    //     fs.unlink(.biznum)
+    //     console.log('사업자등록증 삭제')
+    // }
+    console.log(checkPath)
 })
 
 // router.get('/isuser', function (req, res) {
