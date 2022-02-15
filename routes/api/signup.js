@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {urlencoded, request} = require("express");
 const db = require('../../db/mysql')
-const upload = require('../../config/upload')
+const {upload, fileFilter} = require('../../config/upload')
 const fs = require("fs");
 const _ = require("lodash");
 const {forEach} = require("lodash");
@@ -126,25 +126,35 @@ router.post('/deleteuser', async function (req, res) {
         if (result[0][0] != null) {
             if (result[0][0].userpw == userpw) {
                 console.log('result: ',result[0][0].userpw)
-                db.query(deletesql, userid)
                 try{  //'uploads/image' + result[0][0].biznum
-                    if (fs.existsSync("/uploads/image")) {
+                    if (fs.existsSync("/uploads/image/" + result[0][0].biznum )) {
                         fs.unlink(result[0][0].biznum)
                         console.log('사업자등록증 삭제')
                     }
+                    db.query(deletesql, userid)
                 } catch(err){
                     console.log(err)
                 }
                 return res.json(1)
             }else {
                 //비밀번호가 틀림
-                return res.json(2)
+                return res.json(0)
             }
         } else {
             // console.log("탐색되지 않음")
             return res.json(0)
         }
     })
+})
+
+//사진삭제 테스트 메소드
+router.post('/delPhoto', function(req, res){
+    let checkPath = fs.existsSync("/uploads/image/" + req.body.biznum)
+    // if (fs.existsSync("/uploads/image/" + req.body.biznum )) {
+    //     fs.unlink(.biznum)
+    //     console.log('사업자등록증 삭제')
+    // }
+    console.log(checkPath)
 })
 
 // router.get('/isuser', function (req, res) {
