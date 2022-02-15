@@ -58,7 +58,7 @@ router.post('/signup', function (req, res) {
     console.log(myarr)
 
 
-    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null)'
+    let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null,null)'
      db.query(insertSql, myarr, function (err, rows, fields) {
          console.log("======================",err)
          console.log("======================",rows)

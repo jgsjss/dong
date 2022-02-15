@@ -188,6 +188,7 @@ router.post('/refresh', function (req, res, next) {
 // *** 구조체 형식
 router.post('/db', async function (req, res) {
     let [rows, fields] = await db.query("select * from user")
+    console.log(fields)
     console.log('응답 객체 길이', rows.length)
     res.status(200).json(rows)
 })
