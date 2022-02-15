@@ -80,6 +80,12 @@ router.post('/upload', upload.single('image'), (req, res) => {
     // console.log("biznum =======> ", req.headers.biznum)
     res.send('ok')
 })
+
+
+
+
+
+
 //유저 id 탐색
 router.post('/isuser', function (req, res) {
     let userid = req.body.userid
@@ -121,6 +127,14 @@ router.post('/deleteuser', async function (req, res) {
             if (result[0][0].userpw == userpw) {
                 console.log('result: ',result[0][0].userpw)
                 db.query(deletesql, userid)
+                try{  //'uploads/image' + result[0][0].biznum
+                    if (fs.existsSync("/uploads/image")) {
+                        fs.unlink(result[0][0].biznum)
+                        console.log('사업자등록증 삭제')
+                    }
+                } catch(err){
+                    console.log(err)
+                }
                 return res.json(1)
             }else {
                 //비밀번호가 틀림
