@@ -104,6 +104,35 @@ router.post('/isuser', function (req, res) {
     })
 })
 
+//가입 신청 취소
+router.post('/deleteuser', async function (req, res) {
+    let userid = req.body.userid
+    let userpw = req.body.userpw
+    console.log(userid)
+    const sql = 'select * from user where userid=?'
+    const deletesql = 'delete from user where userid=?'
+
+    let data = db.query(sql, userid)
+    console.log(data)
+    await data.then(result => {
+        // const useridResult = result[0][0].userid
+        console.log('result: ',result[0][0])
+        if (result[0][0] != null) {
+            if (result[0][0].userpw == userpw) {
+                console.log('result: ',result[0][0].userpw)
+                db.query(deletesql, userid)
+                return res.json(1)
+            }else {
+                //비밀번호가 틀림
+                return res.json(2)
+            }
+        } else {
+            // console.log("탐색되지 않음")
+            return res.json(0)
+        }
+    })
+})
+
 // router.get('/isuser', function (req, res) {
 //     // let userid = req.body.userid
 //     let userid = req.query.userid
