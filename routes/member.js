@@ -191,4 +191,9 @@ router.post('/db', async function (req, res) {
     console.log('응답 객체 길이', rows.length)
     res.status(200).json(rows)
 })
+
+router.get("/findUserOne:id", async function (req, res) {
+    let [rws,fields]=await db.query("select * from user where userid=?",req.query.param)
+    db.end()
+})
 module.exports = router;
