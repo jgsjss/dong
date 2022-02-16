@@ -151,18 +151,18 @@ router.post('/delPhoto', function (req, res) {
     let pre = biznum.concat(".png")
     let abspath = path.resolve("uploads", "image")
     let target = abspath.concat("/"+pre)
-    let isExitst = fs.existsSync(abspath, pre)
-  
+    let isExist = fs.existsSync(abspath, pre)
+
     fs.unlink(target,function (err) {
         console.log(err)
     })
     // fs.readdir('../../uploads/image',function(err,filelist){ console.log(filelist); });
 
-    console.log('path 주소 :', isExitst)
+    console.log('path 주소 :', isExist)
     console.log('abs 주소 :', abspath)
     // console.log('직접 지정 :',"/uploads/image/" + pre)
     // console.log('가공 :',pre)
-    res.status(200).json(isExitst)
+    res.status(200).json(isExist)
 })
 
 // router.get('/isuser', function (req, res) {
