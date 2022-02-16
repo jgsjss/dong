@@ -6,6 +6,8 @@ const {upload, fileFilter} = require('../../config/upload')
 const fs = require("fs");
 const _ = require("lodash");
 const {forEach} = require("lodash");
+const {stringify} = require("nodemon/lib/utils");
+const path = require("path")
 // let sql = require('/db/sql')
 
 /* GET users listing. */
@@ -27,12 +29,12 @@ router.get('/get', function (req, res) {
 });
 
 router.post('/db', async function (req, res) {
-   //  let [rows, fields] = db.query('select * from user')
-   // forEach(rows,(res)=>{
-   //     console.log(res)
-   // })
+    //  let [rows, fields] = db.query('select * from user')
+    // forEach(rows,(res)=>{
+    //     console.log(res)
+    // })
 
-    let data =await db.query('select * from user').then((result) => {
+    let data = await db.query('select * from user').then((result) => {
 
         console.log(result)
         res.json(result[0])
@@ -59,9 +61,9 @@ router.post('/signup', function (req, res) {
 
 
     let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,?,null,null)'
-     db.query(insertSql, myarr, function (err, rows, fields) {
-         console.log("======================",err)
-         console.log("======================",rows)
+    db.query(insertSql, myarr, function (err, rows, fields) {
+        console.log("======================", err)
+        console.log("======================", rows)
         if (err) {
             console.log(err)
             console.log(rows.usernum)
@@ -82,10 +84,6 @@ router.post('/upload', upload.single('image'), (req, res) => {
 })
 
 
-
-
-
-
 //유저 id 탐색
 router.post('/isuser', function (req, res) {
     let userid = req.body.userid
@@ -96,7 +94,7 @@ router.post('/isuser', function (req, res) {
     console.log(data)
     data.then(result => {
         // const useridResult = result[0][0].userid
-        console.log('result: ',result)
+        console.log('result: ', result)
         if (result[0][0] != null) {
             if (result[0][0].userid) {
                 // console.log(result[0][0].userid)
@@ -122,21 +120,21 @@ router.post('/deleteuser', async function (req, res) {
     console.log(data)
     await data.then(result => {
         // const useridResult = result[0][0].userid
-        console.log('result: ',result[0][0])
+        console.log('result: ', result[0][0])
         if (result[0][0] != null) {
             if (result[0][0].userpw == userpw) {
-                console.log('result: ',result[0][0].userpw)
-                try{  //'uploads/image' + result[0][0].biznum
-                    if (fs.existsSync("/uploads/image/" + result[0][0].biznum )) {
+                console.log('result: ', result[0][0].userpw)
+                try {  //'uploads/image' + result[0][0].biznum
+                    if (fs.existsSync("/uploads/image/" + result[0][0].biznum)) {
                         fs.unlink(result[0][0].biznum)
                         console.log('사업자등록증 삭제')
                     }
                     db.query(deletesql, userid)
-                } catch(err){
+                } catch (err) {
                     console.log(err)
                 }
                 return res.json(1)
-            }else {
+            } else {
                 //비밀번호가 틀림
                 return res.json(0)
             }
@@ -148,13 +146,23 @@ router.post('/deleteuser', async function (req, res) {
 })
 
 //사진삭제 테스트 메소드
-router.post('/delPhoto', function(req, res){
-    let checkPath = fs.existsSync("/uploads/image/" + req.body.biznum)
-    // if (fs.existsSync("/uploads/image/" + req.body.biznum )) {
-    //     fs.unlink(.biznum)
-    //     console.log('사업자등록증 삭제')
-    // }
-    console.log(checkPath)
+router.post('/delPhoto', function (req, res) {
+    let biznum = stringify(req.body.biznum)
+    let pre = biznum.concat(".png")
+    let abspath = path.resolve("uploads", "image")
+    let target = abspath.concat("/"+pre)
+    let isExitst = fs.existsSync(abspath, pre)
+  
+    fs.unlink(target,function (err) {
+        console.log(err)
+    })
+    // fs.readdir('../../uploads/image',function(err,filelist){ console.log(filelist); });
+
+    console.log('path 주소 :', isExitst)
+    console.log('abs 주소 :', abspath)
+    // console.log('직접 지정 :',"/uploads/image/" + pre)
+    // console.log('가공 :',pre)
+    res.status(200).json(isExitst)
 })
 
 // router.get('/isuser', function (req, res) {
