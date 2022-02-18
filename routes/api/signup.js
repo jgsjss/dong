@@ -72,10 +72,8 @@ router.post('/signup', function (req, res) {
             // console.log(myMap)
             console.log(res)
             res.status(200).json(1)
-
         }
     })
-
 })
 router.post('/upload', upload.single('image'), (req, res) => {
     console.log(req.file, req.body)
@@ -123,12 +121,15 @@ router.post('/deleteuser', async function (req, res) {
         console.log('result: ', result[0][0])
         if (result[0][0] != null) {
             if (result[0][0].userpw == userpw) {
-                console.log('result: ', result[0][0].userpw)
+                console.log('result[0][0] : ', result[0][0].userpw)
                 try {  //'uploads/image' + result[0][0].biznum
-                    if (fs.existsSync("/uploads/image/" + result[0][0].biznum)) {
-                        fs.unlink(result[0][0].biznum)
-                        console.log('사업자등록증 삭제')
-                    }
+                    let biznum = stringify(result[0][0].biznum)
+                    let pre = biznum.concat(".png")
+                    let abspath = path.resolve("uploads", "image")
+                    let target = abspath.concat("/"+pre)
+                    fs.unlink(target, function (err){
+                        console.log((err))
+                    })
                     db.query(deletesql, userid)
                 } catch (err) {
                     console.log(err)

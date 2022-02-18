@@ -1,26 +1,79 @@
+create table categories
+(
+    ctnum       int auto_increment,
+    pdcategory  varchar(50)  not null
+        primary key,
+    description varchar(200) null,
+    constraint categories_ctnum_uindex
+        unique (ctnum)
+);
+
+create table `option`
+(
+    opnum   int auto_increment,
+    opname  varchar(50) not null
+        primary key,
+    opprice int         null,
+    constraint option_opname_uindex
+        unique (opname),
+    constraint option_opnum_uindex
+        unique (opnum)
+);
+
+create table products
+(
+    pdnum         int auto_increment,
+    pdname        varchar(100) not null
+        primary key,
+    pdcategory    varchar(50)  null,
+    price         int          not null,
+    pddescription varchar(150) null,
+    pdimage       varchar(100) null,
+    pdoption      int          null,
+    constraint products_pdcategory_uindex
+        unique (pdcategory),
+    constraint products_pdnum_uindex
+        unique (pdnum),
+    constraint products_pdoption_uindex
+        unique (pdoption)
+);
+
+create table subcategories
+(
+    catenum int(20) auto_increment
+        primary key,
+    ctnum   int(20)      null,
+    pdname  varchar(100) null
+);
+
+create index table_name_categories_ctnum_fk
+    on subcategories (ctnum);
+
 create table user
 (
     usernum      int(10) auto_increment,
-    userid       varchar(10)                          not null
+    userid       varchar(10)                            not null
         primary key,
-    userpw       varchar(20)                          not null,
-    username     varchar(10)                          not null,
-    biznum       varchar(10)                          null,
-    phnum        varchar(15)                          not null,
-    bizaddr1     varchar(50)                          null,
-    bizaddr2     varchar(50)                          null,
-    bizzip       varchar(10)                          null,
-    mgname       varchar(10)                          null,
-    mgphnum      varchar(15)                          null,
-    mgemail      varchar(50)                          null,
-    selected     varchar(10)                          not null,
-    shopname     varchar(50)                          not null,
-    shopphnum    varchar(15)                          not null,
-    userdate     datetime default current_timestamp() not null,
-    inprocess    char                                 null comment '0-inprocess
-1-signed',
-    etc          varchar(30)                          null,
-    refreshtoken varchar(200)                         null,
+    userpw       varchar(30)                            not null,
+    username     varchar(10)                            not null,
+    biznum       varchar(10)                            null,
+    phnum        varchar(15)                            not null,
+    bizaddr1     varchar(50)                            null,
+    bizaddr2     varchar(50)                            null,
+    bizzip       varchar(10)                            null,
+    mgname       varchar(10)                            null,
+    mgphnum      varchar(15)                            null,
+    mgemail      varchar(50)                            null,
+    selected     varchar(10)                            not null,
+    shopname     varchar(50)                            not null,
+    shopphnum    varchar(15)                            not null,
+    userdate     datetime   default current_timestamp() not null,
+    inprocess    varchar(5) default '0'                 null comment '0 - inprocess
+1 - signup
+',
+    etc          varchar(30)                            null,
+    refreshToken varchar(200)                           null,
+    shopcode     int(20)                                null,
     constraint user_usernum_uindex
         unique (usernum)
 );
