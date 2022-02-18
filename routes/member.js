@@ -80,6 +80,7 @@ router.post('/login', function (req, res, next) {
             } else res.status(401).json({success: false, errormessage: 'ID와 비밀번호가 일치하지 않습니다.'})
         } else res.status(401).json({success: false, errormessage: '존재하지 않는 ID입니다.'})
     })
+
 })
 
 //토큰 재발급
@@ -190,11 +191,12 @@ router.post('/db', async function (req, res) {
     let [rows, fields] = await db.query("select * from user")
     console.log(fields)
     console.log('응답 객체 길이', rows.length)
+
     res.status(200).json(rows)
 })
 
 router.get("/findUserOne:id", async function (req, res) {
     let [rws,fields]=await db.query("select * from user where userid=?",req.query.param)
-    db.end()
+
 })
 module.exports = router;

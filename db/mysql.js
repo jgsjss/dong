@@ -11,8 +11,8 @@ const pool = mysql.createPool({
     password: "eeta",
     database: "paycoq",
     waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 10
+    connectionLimit: 50,
+    queueLimit: 50
 });
 
 // const promisePool = pool.promise();
