@@ -18,6 +18,8 @@ router.post('/login', function (req, res, next) {
             let shopname = result[0][0].shopname;
             let shopphnum = result[0][0].shopphnum;
             let mgname = result[0][0].mgname;
+            let shopcode = result[0][0].shopcode;
+            let userrole = result[0][0].userrole;
             if (result[0][0].userpw == userpw) {
                 // Access-Token
                 let accessToken = '';
@@ -70,7 +72,9 @@ router.post('/login', function (req, res, next) {
                         refreshToken: refreshToken,
                         shopname: shopname,
                         shopphnum: shopphnum,
-                        mgname: mgname
+                        mgname: mgname,
+                        shopcode: shopcode,
+                        userrole: userrole,
                     }
                     res.json(mydata);
                     console.log(mydata)
