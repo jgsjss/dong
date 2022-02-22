@@ -22,7 +22,10 @@ router.post('/categories', async function (req, res) {
     }
 
     //offset,limit
-    let result = [(curpage - 1) * Number(pageSize), Number(pageSize)]
+    let result = [
+        (curpage - 1) * Number(pageSize),
+        Number(pageSize)
+    ]
 
     console.log(curpage)
     //조인문 쿼리
