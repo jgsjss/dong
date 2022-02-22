@@ -27,14 +27,15 @@ router.post('/categories', async function (req, res) {
         Number(pageSize)
     ]
 
-    console.log(curpage)
+    console.log(result[0])
+    console.log(result[1])
     //조인문 쿼리
-    let joinquery = "select * from categories as a right outer join subcategories b on a.ctnum = b.ctnum limit ?,?"
+    let joinquery = "select * from categories as a right outer join subcategories b on a.ctnum = b.ctnum order by b.catenum asc limit ?,?"
 
     //카테고리와 서브카테고리 조인문
     let [rows, joinfields] = await db.query(joinquery, result);
 
-    console.log(rows)
+    // console.log(rows)
     res.status(200).json(rows)
 })
 
