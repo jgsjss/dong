@@ -74,6 +74,7 @@ create table user
     etc          varchar(30)                            null,
     refreshToken varchar(200)                           null,
     shopcode     int(20)                                null,
+    userrole     int(2)     default 0                   not null comment '0번이 사업주 1번 점장 2번 매니저 3번 알바생',
     constraint user_usernum_uindex
         unique (usernum)
 );
