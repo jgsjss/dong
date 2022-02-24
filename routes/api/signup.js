@@ -191,7 +191,6 @@ router.post('/delPhoto', function (req, res) {
 //             // }
 //         }
 //     )
-
 router.post('/test', function (req, res) {
     let userid = req.body.userid
     console.log(userid)

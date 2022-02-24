@@ -186,9 +186,7 @@ router.post('/refresh', function (req, res, next) {
             res.status(401).json({success: false, errormessage: '일치하는 회원정보가 없습니다.'});
         }
     })
-
 })
-
 
 // *** 구조체 형식
 router.post('/db', async function (req, res) {

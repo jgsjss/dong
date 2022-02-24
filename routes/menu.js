@@ -3,6 +3,7 @@ var router = express.Router();
 const db = require('../db/mysql')
 const path = require("path")
 const {urlencoded, request} = require("express");
+const _ = require("lodash");
 
 
 //카테고리 페이지 첫화면
@@ -20,13 +21,11 @@ router.post('/categories', async function (req, res) {
     if (!pageSize || pageSize <= 0) {
         pageSize = DEFAULT_PAGE_SIZE
     }
-
     //offset,limit
     let result = [
         (curpage - 1) * Number(pageSize),
         Number(pageSize)
     ]
-
     console.log(result[0])
     console.log(result[1])
     //조인문 쿼리
@@ -37,6 +36,23 @@ router.post('/categories', async function (req, res) {
 
     // console.log(rows)
     res.status(200).json(rows)
+})
+
+router.post('/addcategory', async function(req, res){
+
+    let ctvalues = new Array()
+    _.map(req.body, (value, key, collection) => {
+        ctvalues.push(value)
+        console.log("키",key)
+        console.log("벨류",value)
+        console.log("콜렉션",collection)
+    })
+
+    // console.log(ctvalues)
+    let insertquery = "insert into categories values(null, ?,?,?)"
+    let [rows, ctfields] = await db.query(insertquery, ctvalues)
+    res.status(200).json(rows)
+
 })
 
 

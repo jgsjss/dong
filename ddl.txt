@@ -1,9 +1,11 @@
+
 create table categories
 (
     ctnum       int auto_increment,
     pdcategory  varchar(50)  not null
         primary key,
     description varchar(200) null,
+    status      varchar(20)  not null,
     constraint categories_ctnum_uindex
         unique (ctnum)
 );
