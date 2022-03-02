@@ -34,7 +34,7 @@ router.post('/categories', async function (req, res) {
     // 게시물 갯수
     let articleLengthQuery = "select * from categories as a right outer join subcategories b on a.ctnum = b.ctnum order by b.catenum asc"
     let [articleLengthBefore] = await db.query(articleLengthQuery)
-    let ActualArticleLength = articleLengthBefore.length / 10
+    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
     console.log("목록 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 서브카테고리 조인문
