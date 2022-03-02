@@ -42,7 +42,7 @@ router.post('/db', async function (req, res) {
 
 })
 
-router.post('/signup', function (req, res) {
+router.post('/signup', async function (req, res) {
     // let {managename, biznum} = req.body
 
     let myMap = new Map()
@@ -61,19 +61,22 @@ router.post('/signup', function (req, res) {
 
 
     let insertSql = 'insert into user values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),0,null,null,0,?)'
-    db.query(insertSql, myarr, function (err, rows, fields) {
-        console.log("======================", err)
-        console.log("======================", rows)
-        if (err) {
-            console.log(err)
-            console.log(rows.usernum)
-            res.status(401).json({result: 0})
-        } else {
-            // console.log(myMap)
-            console.log(res)
-            res.status(200).json({result: 1})
-        }
-    })
+    let [rows, fields, err] = await db.query(insertSql, myarr)
+
+    // console.log("======================", err)
+    // console.log("======================", rows)
+    console.log("err : ", err)
+    // console.log(myMap)
+    if (rows) {
+        console.log(res)
+        res.status(200).json({result: 1})
+    } else {
+        // console.log(err)
+        console.log(rows.usernum)
+        res.status(401).json({result: 0})
+    }
+
+
 })
 router.post('/upload', upload.single('image'), (req, res) => {
     console.log(req.file, req.body)
