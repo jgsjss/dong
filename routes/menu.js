@@ -40,7 +40,7 @@ router.post('/categories', async function (req, res) {
     //카테고리와 서브카테고리 조인문
     let [rows, joinfields] = await db.query(joinquery, result);
 
-    let articles = [rows, ActualArticleLength]
+    let articles = {rows:rows, length:ActualArticleLength}
     // console.log(rows)
     res.status(200).json(articles)
 })
