@@ -14,6 +14,8 @@ router.post('/login', function (req, res, next) {
     sql = 'select * from user where userid = ?'
     data = db.query(sql, userid)
     data.then(async result => {
+        console.log("result[0][0] : ",result[0][0])
+
         if (result[0][0] != null) {
             let shopname = result[0][0].shopname;
             let shopphnum = result[0][0].shopphnum;
