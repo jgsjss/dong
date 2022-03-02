@@ -26,26 +26,33 @@ router.post('/categories', async function (req, res) {
         (curpage - 1) * Number(pageSize),
         Number(pageSize)
     ]
-    console.log(result[0])
-    console.log(result[1])
+    // console.log(result[0])
+    // console.log(result[1])
     //조인문 쿼리
     let joinquery = "select * from categories as a right outer join subcategories b on a.ctnum = b.ctnum order by b.catenum asc limit ?,?"
 
+    // 게시물 갯수
+    let articleLengthQuery = "select * from categories as a right outer join subcategories b on a.ctnum = b.ctnum order by b.catenum asc"
+    let [articleLengthBefore] = await db.query(articleLengthQuery)
+    let ActualArticleLength = articleLengthBefore.length / 10
+    console.log("목록 리스트 갯수 : ", ActualArticleLength)
+    // 게시물 갯수
     //카테고리와 서브카테고리 조인문
     let [rows, joinfields] = await db.query(joinquery, result);
 
+    let articles = [rows, ActualArticleLength]
     // console.log(rows)
-    res.status(200).json(rows)
+    res.status(200).json(articles)
 })
 
-router.post('/addcategory', async function(req, res){
+router.post('/addcategory', async function (req, res) {
 
     let ctvalues = new Array()
     _.map(req.body, (value, key, collection) => {
         ctvalues.push(value)
-        console.log("키",key)
-        console.log("벨류",value)
-        console.log("콜렉션",collection)
+        console.log("키", key)
+        console.log("벨류", value)
+        console.log("콜렉션", collection)
     })
 
     // console.log(ctvalues)
