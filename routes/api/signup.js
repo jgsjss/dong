@@ -67,11 +67,11 @@ router.post('/signup', function (req, res) {
         if (err) {
             console.log(err)
             console.log(rows.usernum)
-            res.status(401).json(0)
+            res.status(401).json({result: 0})
         } else {
             // console.log(myMap)
             console.log(res)
-            res.status(200).json(1)
+            res.status(200).json({result: 1})
         }
     })
 })
@@ -126,8 +126,8 @@ router.post('/deleteuser', async function (req, res) {
                     let biznum = stringify(result[0][0].biznum)
                     let pre = biznum.concat(".png")
                     let abspath = path.resolve("uploads", "image")
-                    let target = abspath.concat("/"+pre)
-                    fs.unlink(target, function (err){
+                    let target = abspath.concat("/" + pre)
+                    fs.unlink(target, function (err) {
                         console.log((err))
                     })
                     db.query(deletesql, userid)
@@ -151,10 +151,10 @@ router.post('/delPhoto', function (req, res) {
     let biznum = stringify(req.body.biznum)
     let pre = biznum.concat(".png")
     let abspath = path.resolve("uploads", "image")
-    let target = abspath.concat("/"+pre)
+    let target = abspath.concat("/" + pre)
     let isExist = fs.existsSync(abspath, pre)
 
-    fs.unlink(target,function (err) {
+    fs.unlink(target, function (err) {
         console.log(err)
     })
     // fs.readdir('../../uploads/image',function(err,filelist){ console.log(filelist); });

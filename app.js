@@ -44,7 +44,7 @@ app.use(session({
 app.use(express.json({
     limit: '50mb'
 }));
-app.use(require('express-status-monitor')());
+// app.use(require('express-status-monitor')());
 var PORT = 5000
 app.listen(PORT, function () {
     console.log(PORT, '실행되었음')
