@@ -6,7 +6,18 @@ const {urlencoded, request} = require("express");
 const _ = require("lodash");
 
 
-//카테고리 페이지 첫화면
+router.post('/menucategory', async function(req, res){
+    let [rows, fields] = await db.query('select * from categories')
+    console.log(rows)
+
+
+
+    res.status(200).json({rows : rows})
+
+})
+
+
+//카테고리 페이지 첫화면 페이징처리
 router.post('/categories', async function (req, res) {
 
     let curpage = req.body.data.curpage
