@@ -7,7 +7,7 @@ const _ = require("lodash");
 
 
 router.post('/menucategory', async function(req, res){
-    let [rows, fields] = await db.query('select * from categories')
+    let [rows, fields] = await db.query('select * from paycoq.categories')
     console.log(rows)
 
     res.status(200).json({rows : rows})
@@ -37,10 +37,14 @@ router.post('/categories', async function (req, res) {
     // console.log(result[0])
     // console.log(result[1])
     //조인문 쿼리
+
     let joinquery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc limit ?,?"
 
     // 게시물 갯수
     let articleLengthQuery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc"
+
+
+
     let [articleLengthBefore] = await db.query(articleLengthQuery)
     let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
     console.log("목록 리스트 갯수 : ", ActualArticleLength)
@@ -64,7 +68,7 @@ router.post('/addcategory', async function (req, res) {
     })
 
     // console.log(ctvalues)
-    let insertquery = "insert into categories values(null, ?,?,?)"
+    let insertquery = "insert into paycoq.categories values(null, ?,?,?)"
     let [rows, ctfields] = await db.query(insertquery, ctvalues)
     res.status(200).json(rows)
 
