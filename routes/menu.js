@@ -7,7 +7,7 @@ const _ = require("lodash");
 
 
 router.post('/menucategory', async function(req, res){
-    let [rows, fields] = await db.query('select * from categories')
+    let [rows, fields] = await db.query('select * from paycoq.categories')
     console.log(rows)
 
 
