@@ -74,5 +74,46 @@ router.post('/addcategory', async function (req, res) {
 
 })
 
+router.post('/menus', async function (req, res){
+    let curpage = req.body.data.curpage
+    let pageSize = 5;
+
+    const DEFAULT_START_PAGE = 1;
+    const DEFAULT_PAGE_SIZE = 5;
+
+    if (!curpage || curpage <= 0) {
+        curpage = DEFAULT_START_PAGE
+    }
+    if (!pageSize || pageSize <= 0) {
+        pageSize = DEFAULT_PAGE_SIZE
+    }
+    //offset,limit
+    let result = [
+        (curpage - 1) * Number(pageSize),
+        Number(pageSize)
+    ]
+    // console.log(result[0])
+    // console.log(result[1])
+    //조인문 쿼리
+
+    let joinquery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc limit ?,?"
+
+    // 게시물 갯수
+    let articleLengthQuery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc"
+
+
+
+    let [articleLengthBefore] = await db.query(articleLengthQuery)
+    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
+    console.log("목록 리스트 갯수 : ", ActualArticleLength)
+    // 게시물 갯수
+    //카테고리와 프로덕츠 조인문
+    let [rows, joinfields] = await db.query(joinquery, result);
+
+    let articles = {rows:rows, length:ActualArticleLength}
+    // console.log(rows)
+    res.status(200).json(articles)
+})
+
 
 module.exports = router;
