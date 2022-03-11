@@ -4,6 +4,8 @@ const db = require('../db/mysql')
 const path = require("path")
 const {urlencoded, request} = require("express");
 const _ = require("lodash");
+const { upload } = require("../config/upload")
+const sharp = require("sharp")
 
 
 router.post('/menucategory', async function(req, res){
@@ -104,7 +106,7 @@ router.post('/menus', async function (req, res){
 
 
     let [articleLengthBefore] = await db.query(articleLengthQuery)
-    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
+    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 5)
     console.log("목록 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 프로덕츠 조인문
@@ -115,5 +117,21 @@ router.post('/menus', async function (req, res){
     res.status(200).json(articles)
 })
 
+router.post("/pdupload", upload.single("image"),  (req,res) => {
+    try{
+        sharp(req.file.path)
+            .resize({ width: 300 })
+            .withMetadata()
+            .toBuffer((err, buffer) => {
+                if(err) throw err;
+                fs.writeFile(req.file.path, buffer, (err) =>{
+                    if(err) throw err;
+                })
+            })
+    }catch (err){
+        console.log(err)
+    }
+    res.json({ filename: `${req.file.filename}`});
+})
 
 module.exports = router;
