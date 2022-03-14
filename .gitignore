@@ -75,3 +75,6 @@ typings/
 
 # FuseBox cache
 .fusebox/
+!/db/
+!/ecosystem.config.js
+!/ecosystem.config.js
