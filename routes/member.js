@@ -14,7 +14,7 @@ router.post('/login', function (req, res, next) {
     sql = 'select * from user where userid = ?'
     data = db.query(sql, userid)
     data.then(async result => {
-        console.log("result[0][0] : ",result[0][0])
+        console.log("result[0][0] : ", result[0][0])
 
         if (result[0][0] != null) {
             let shopname = result[0][0].shopname;
@@ -193,14 +193,14 @@ router.post('/refresh', function (req, res, next) {
 // *** 구조체 형식
 router.post('/db', async function (req, res) {
     let [rows, fields] = await db.query("select * from user")
-    console.log(fields)
+    // console.log(fields)
+    console.log(rows)
     console.log('응답 객체 길이', rows.length)
-
     res.status(200).json(rows)
 })
 
 router.get("/findUserOne:id", async function (req, res) {
-    let [rws,fields]=await db.query("select * from user where userid=?",req.query.param)
+    let [rws, fields] = await db.query("select * from user where userid=?", req.query.param)
 
 })
 module.exports = router;
