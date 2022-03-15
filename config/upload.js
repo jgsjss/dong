@@ -2,6 +2,8 @@ const multer = require('multer')
 const path = require("path");
 const fs = require("fs");
 
+//회원가입시 사업자 등록 뮬터
+
 const fileFilter = (req, file, cb) => {
     if(file.mimetype === "image/png" || file.mimetype ==="image/jpg" || file.mimetype === "image/jpeg"){
         cb(null, true); // 위의 확장자 이미지 파일만 받겠다

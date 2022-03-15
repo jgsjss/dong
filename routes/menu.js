@@ -4,8 +4,9 @@ const db = require('../db/mysql')
 const path = require("path")
 const {urlencoded, request} = require("express");
 const _ = require("lodash");
-const { upload } = require("../config/upload")
+const { pdupload } = require("../config/pdupload")
 const sharp = require("sharp")
+const fs = require("fs")
 
 
 router.post('/menucategory', async function(req, res){
@@ -117,7 +118,7 @@ router.post('/menus', async function (req, res){
     res.status(200).json(articles)
 })
 
-router.post("/pdupload", upload.single("image"),  (req,res) => {
+router.post("/pdupload", pdupload.single("image"),  (req,res) => {
     try{
         sharp(req.file.path) //압축할 이미지 경로
             .resize({ width: 300 }) //비율을 유지하며 가로 크기 줄이기(반응형)
@@ -133,6 +134,20 @@ router.post("/pdupload", upload.single("image"),  (req,res) => {
         console.log(err)
     }
     res.json({ filename: `${req.file.filename}`});
+})
+
+router.post("/addMenu", async function (req, res){
+    let products = new Array()
+    _.map(req.body, (value, key, collection) => {
+        products.push(value)
+        console.log("키", key)
+        console.log("벨류", value)
+        console.log("콜렉션", collection)
+    })
+    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null)"
+    let [rows, fields] = await db.query(insertquery, products)
+
+    res.status(200).json(rows)
 })
 
 module.exports = router;
