@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const fs=require('fs')
+const fs = require('fs')
 const authmiddleware = require('./middleware/authmiddleware.js')
 
 var indexRouter = require('./routes/index');
@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/api/signup')
 var memberRouter = require('./routes/member')
 var menuRouter = require('./routes/menu')
+var statusRouter = require('./routes/api/status')
 const http = require("http");
 const session = require('express-session')
 var app = express();
@@ -26,11 +27,13 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', signupRouter);
 app.use('/member', memberRouter);
 app.use('/apimenu', menuRouter)
+app.use('/status', statusRouter)
 // app.use('')
 app.use(session({
     secret: 'secret code',
