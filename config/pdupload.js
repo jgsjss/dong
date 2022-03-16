@@ -18,8 +18,8 @@ const pdupload = multer({
             console.log(done)
         }, filename(req, file, done) {
             const ext = path.extname(file.originalname);
-            const timestamp = new Date().getTime().valueOf();
-            const filename = path.basename(file.originalname, ext) + timestamp + ext;
+            // const timestamp = new Date().getTime().valueOf();
+            const filename = path.basename(file.originalname, ext) + ext;
             done(null, filename);
         },
     }),

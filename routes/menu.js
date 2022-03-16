@@ -131,11 +131,12 @@ router.post("/pdupload", pdupload.single("image"), (req, res) => {
     } catch (err) {
         console.log(err)
     }
-    res.json({filename: `${req.file.filename}`});
+    res.status(200).json(1);
 })
 
 router.post("/addMenu", async function (req, res) {
     let products = new Array()
+    //req.body.data 까지 해야함
     _.map(req.body.data, (value, key, collection) => {
         products.push(value)
         console.log("키", key)
