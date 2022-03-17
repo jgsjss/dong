@@ -6,6 +6,7 @@ const db = require('../../db/mysql');
 
 
 router.get('/check', function (req, res, next) {
+    console.log("serv checked")
     res.sendStatus(200);
 
 });
