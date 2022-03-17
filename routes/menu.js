@@ -11,7 +11,7 @@ const fs = require("fs")
 
 router.post('/menucategory', async function (req, res) {
     let [rows, fields] = await db.query('select * from paycoq.categories')
-    console.log(rows)
+    // console.log(rows)
 
     res.status(200).json({rows: rows})
 })
@@ -117,6 +117,9 @@ router.post('/menus', async function (req, res) {
 })
 
 router.post("/pdupload", pdupload.single("image"), (req, res) => {
+
+    const usercookie = req.body.shopcode
+    console.log("req data: ", usercookie)
     try {
         sharp(req.file.path) //압축할 이미지 경로
             .resize({width: 300}) //비율을 유지하며 가로 크기 줄이기(반응형)
