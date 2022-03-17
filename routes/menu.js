@@ -119,7 +119,7 @@ router.post('/menus', async function (req, res) {
 router.post("/pdupload", pdupload.single("image"), (req, res) => {
 
     const usercookie = req.body.shopcode
-    console.log("req data: ", usercookie)
+    //console.log("req data: ", usercookie)
     try {
         sharp(req.file.path) //압축할 이미지 경로
             .resize({width: 300}) //비율을 유지하며 가로 크기 줄이기(반응형)

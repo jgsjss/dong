@@ -22,12 +22,17 @@ const pdupload = multer({
             done(null, imageDir);
             console.log(done)
         }, filename(req, file, done) {
+            const shopcode = req.body.shopcode
+            // const productcode = req.body.productcode
+            const nameset = shopcode + "-" + productcode
+            console.log("nameset ", nameset)
+            done(null, nameset);
             const ext = path.extname(file.originalname);
             // const timestamp = new Date().getTime().valueOf();
             // console.log("ext : " + ext)
             // console.log("original : " + file.originalname)
             done(null, file.originalname)
-            const filename = path.basename(file.originalname, ext) + ext;
+            const filename = path.basename(shopcode, ext) + ext;
             // console.log("filename : " + filename)
             done(null, filename);
         },
