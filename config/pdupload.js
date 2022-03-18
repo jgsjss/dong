@@ -17,8 +17,8 @@ const pdupload = multer({
     storage: multer.diskStorage({
         destination(req, file, done) {
             // shopcode에 따른 저장경로 분배
-            // console.log("shopcode : ", req.body.data.shopcode);
-            // const shopcode = req.body.data.shopcode;
+            console.log("shopcode : ", req.body.shopcode);
+            const shopcode = req.body.shopcode;
             done(null, imageDir);
             console.log(done)
         }, filename(req, file, done) {
