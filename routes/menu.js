@@ -119,7 +119,8 @@ router.post('/menus', async function (req, res) {
 router.post("/pdupload", pdupload.single("image"), (req, res) => {
 
     const usercookie = req.body.shopcode
-    console.log("req data: ", usercookie)
+    console.log("usercookie: ", usercookie)
+    console.log("req.body.shopcode: ", req.body.shopcode)
     try {
         sharp(req.file.path) //압축할 이미지 경로
             .resize({width: 300}) //비율을 유지하며 가로 크기 줄이기(반응형)
@@ -147,7 +148,7 @@ router.post("/addMenu", async function (req, res) {
         console.log("콜렉션", collection)
     })
 
-    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null)"
+    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null, null)"
     let [rows, fields] = await db.query(insertquery, products)
 
     res.status(200).json(rows)

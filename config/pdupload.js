@@ -18,21 +18,21 @@ const pdupload = multer({
         destination(req, file, done) {
             // shopcode에 따른 저장경로 분배
             console.log("shopcode : ", req.body.shopcode);
-            const shopcode = req.body.shopcode;
-            done(null, imageDir);
+            console.log("haeder : ", req.headers.shopcode);
             console.log(done)
+            done(null, imageDir);
         }, filename(req, file, done) {
-            const shopcode = String(req.body.shopcode)
+            const shopcode = req.headers.shopcode
             // const productcode = req.body.productcode
             // const nameset = shopcode + "-" + productcode
-            console.log("nameset ", shopcode)
-            done(null, shopcode);
+            // console.log("nameset ", shopcode)
+            // done(null, shopcode);
             const ext = path.extname(file.originalname);
             // const timestamp = new Date().getTime().valueOf();
             // console.log("ext : " + ext)
             // console.log("original : " + file.originalname)
-            done(null, file.originalname)
-            const filename = path.basename(shopcode, ext) + ext;
+            // done(null, file.originalname)
+            const filename = path.basename(shopcode + '_' + file.originalname );
             // console.log("filename : " + filename)
             done(null, filename);
         },

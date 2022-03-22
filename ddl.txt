@@ -1,29 +1,4 @@
--- we don't know how to generate root <with-no-name> (class Root) :(
-grant alter, alter routine, binlog admin, binlog monitor, binlog replay, connection admin, create, create routine, create tablespace, create temporary tables, create user, create view, delete, delete history, drop, event, execute, federated admin, file, index, insert, lock tables, process, read_only admin, references, reload, replication master admin, replication slave, replication slave admin, select, set user, show databases, show view, shutdown, slave monitor, super, trigger, update on *.* to root;
-
-grant alter, alter routine, binlog admin, binlog monitor, binlog replay, connection admin, create, create routine, create tablespace, create temporary tables, create user, create view, delete, delete history, drop, event, execute, federated admin, file, index, insert, lock tables, process, read_only admin, references, reload, replication master admin, replication slave, replication slave admin, select, set user, show databases, show view, shutdown, slave monitor, super, trigger, update, grant option on *.* to root@'127.0.0.1';
-
-grant alter, alter routine, binlog admin, binlog monitor, binlog replay, connection admin, create, create routine, create tablespace, create temporary tables, create user, create view, delete, delete history, drop, event, execute, federated admin, file, index, insert, lock tables, process, read_only admin, references, reload, replication master admin, replication slave, replication slave admin, select, set user, show databases, show view, shutdown, slave monitor, super, trigger, update, grant option on *.* to root@'::1';
-
-grant alter, alter routine, binlog admin, binlog monitor, binlog replay, connection admin, create, create routine, create tablespace, create temporary tables, create user, create view, delete, delete history, drop, event, execute, federated admin, file, index, insert, lock tables, process, read_only admin, references, reload, replication master admin, replication slave, replication slave admin, select, set user, show databases, show view, shutdown, slave monitor, super, trigger, update, grant option on *.* to root@'desktop-dl904t5';
-
-grant alter, alter routine, binlog admin, binlog monitor, binlog replay, connection admin, create, create routine, create tablespace, create temporary tables, create user, create view, delete, delete history, drop, event, execute, federated admin, file, index, insert, lock tables, process, read_only admin, references, reload, replication master admin, replication slave, replication slave admin, select, set user, show databases, show view, shutdown, slave monitor, super, trigger, update, grant option on *.* to root@localhost;
-
-create table study.board
-(
-    num        int auto_increment
-        primary key,
-    id         varchar(10)  not null,
-    name       varchar(10)  not null,
-    subject    varchar(100) not null,
-    content    text         not null,
-    regist_day varchar(30)  null,
-    hit        int          null,
-    ip         varchar(20)  null
-)
-    charset = utf8mb3;
-
-create table paycoq.categories
+create table categories
 (
     ctnum       int auto_increment,
     pdcategory  varchar(50)  not null
@@ -34,49 +9,22 @@ create table paycoq.categories
         unique (ctnum)
 );
 
-create table study.member
-(
-    id         varchar(10) not null
-        primary key,
-    password   varchar(10) not null,
-    name       varchar(10) not null,
-    gender     varchar(4)  null,
-    birth      varchar(10) null,
-    mail       varchar(30) null,
-    phone      varchar(20) null,
-    address    varchar(90) null,
-    regist_day varchar(50) null
-)
-    charset = utf8mb3;
-
-create table paycoq.`option`
+create table `option`
 (
     opnum   int auto_increment,
     opname  varchar(50) not null
         primary key,
     opprice int         null,
+    pdnum   int         not null,
     constraint option_opname_uindex
         unique (opname),
     constraint option_opnum_uindex
-        unique (opnum)
+        unique (opnum),
+    constraint option_products_pdnum_fk
+        foreign key (pdnum) references products (pdnum)
 );
 
-create table study.product
-(
-    p_id           varchar(10) not null
-        primary key,
-    p_name         varchar(10) null,
-    p_unitPrice    int         null,
-    p_description  text        null,
-    p_category     varchar(20) null,
-    p_manufacturer varchar(20) null,
-    p_unitsInStock mediumtext  null,
-    p_condition    varchar(20) null,
-    p_fileName     varchar(20) null
-)
-    charset = utf8mb3;
-
-create table paycoq.products
+create table products
 (
     pdnum         int auto_increment,
     pdname        varchar(100) not null
@@ -85,27 +33,17 @@ create table paycoq.products
     price         int          null,
     pddescription varchar(150) null,
     pdimage       varchar(100) null,
-    pdoption      int          null,
+    pdoption1     varchar(50)  null,
+    pdoption2     varchar(50)  null,
     constraint products_pdnum_uindex
         unique (pdnum),
     constraint products_pdoption_uindex
-        unique (pdoption),
+        unique (pdoption1),
     constraint products___ctnum_fk
-        foreign key (ctnum) references paycoq.categories (ctnum)
+        foreign key (ctnum) references categories (ctnum)
 );
 
-create table paycoq.subcategories
-(
-    catenum int(20) auto_increment
-        primary key,
-    ctnum   int(20)      null,
-    pdname  varchar(100) null
-);
-
-create index table_name_categories_ctnum_fk
-    on paycoq.subcategories (ctnum);
-
-create table paycoq.user
+create table user
 (
     usernum      int(10) auto_increment,
     userid       varchar(10)                            not null
@@ -134,4 +72,5 @@ create table paycoq.user
     constraint user_usernum_uindex
         unique (usernum)
 );
+
 
