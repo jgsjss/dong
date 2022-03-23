@@ -6,13 +6,13 @@ const mysql = require('mysql2/promise');
 // });
 
 const pool = mysql.createPool({
-    host: "localhost",
+    host: "34.82.201.150",
     user: "root",
-    password: "eeta",
+    password: "0000",
     database: "paycoq",
     waitForConnections: true,
-    connectionLimit: 50,
-    queueLimit: 50
+    connectionLimit: 5,
+    queueLimit: 5
 });
 
 // const promisePool = pool.promise();
