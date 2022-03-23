@@ -5,42 +5,9 @@ create table categories
         primary key,
     description varchar(200) null,
     status      varchar(20)  not null,
+    shopcode    int(20)      not null,
     constraint categories_ctnum_uindex
         unique (ctnum)
-);
-
-create table `option`
-(
-    opnum   int auto_increment,
-    opname  varchar(50) not null
-        primary key,
-    opprice int         null,
-    pdnum   int         not null,
-    constraint option_opname_uindex
-        unique (opname),
-    constraint option_opnum_uindex
-        unique (opnum),
-    constraint option_products_pdnum_fk
-        foreign key (pdnum) references products (pdnum)
-);
-
-create table products
-(
-    pdnum         int auto_increment,
-    pdname        varchar(100) not null
-        primary key,
-    ctnum         int(20)      not null,
-    price         int          null,
-    pddescription varchar(150) null,
-    pdimage       varchar(100) null,
-    pdoption1     varchar(50)  null,
-    pdoption2     varchar(50)  null,
-    constraint products_pdnum_uindex
-        unique (pdnum),
-    constraint products_pdoption_uindex
-        unique (pdoption1),
-    constraint products___ctnum_fk
-        foreign key (ctnum) references categories (ctnum)
 );
 
 create table user
@@ -70,7 +37,59 @@ create table user
     userrole     int(2)     default 0                   not null comment '0번이 사업주 1번 점장 2번 매니저 3번 알바생',
     etc          varchar(30)                            null,
     constraint user_usernum_uindex
-        unique (usernum)
+        unique (usernum),
+    constraint user_user_usernum_fk
+        foreign key (shopcode) references user (usernum)
 );
 
+create table products
+(
+    pdnum         int auto_increment,
+    pdname        varchar(100) not null
+        primary key,
+    ctnum         int(20)      not null,
+    price         int          null,
+    pddescription varchar(150) null,
+    pdimage       varchar(100) null,
+    pdoption1     varchar(50)  null,
+    pdoption2     varchar(50)  null,
+    shopcode      int(20)      null,
+    userid        varchar(10)  null,
+    constraint products_pdnum_uindex
+        unique (pdnum),
+    constraint products_pdoption_uindex
+        unique (pdoption1),
+    constraint products___ctnum_fk
+        foreign key (ctnum) references categories (ctnum),
+    constraint products_user_userid_fk
+        foreign key (userid) references user (userid)
+);
+
+create table `option`
+(
+    opnum   int auto_increment,
+    opname  varchar(50) not null
+        primary key,
+    opprice int         null,
+    pdnum   int         not null,
+    constraint option_opname_uindex
+        unique (opname),
+    constraint option_opnum_uindex
+        unique (opnum),
+    constraint option_products_pdnum_fk
+        foreign key (pdnum) references products (pdnum)
+);
+
+create table shopmenu
+(
+    shopcode int(20) null,
+    category int     null,
+    product  int     null,
+    constraint shopmenu_categories_ctnum_fk
+        foreign key (category) references categories (ctnum),
+    constraint shopmenu_products_pdnum_fk
+        foreign key (product) references products (pdnum),
+    constraint shopmenu_user_usernum_fk
+        foreign key (shopcode) references user (usernum)
+);
 

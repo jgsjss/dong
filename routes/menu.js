@@ -154,4 +154,8 @@ router.post("/addMenu", async function (req, res) {
     res.status(200).json(rows)
 })
 
+router.get("/join",async function(req,res,next  ){
+
+})
+
 module.exports = router;
