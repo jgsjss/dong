@@ -6,6 +6,7 @@ const mysql = require('mysql2/promise');
 // });
 
 const pool = mysql.createPool({
+    // jgs db
     host: "34.82.201.150",
     user: "root",
     password: "0000",
