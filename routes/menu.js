@@ -10,7 +10,10 @@ const fs = require("fs")
 
 
 router.post('/menucategory', async function (req, res) {
-    let [rows, fields] = await db.query('select * from paycoq.categories')
+
+    let shopcodereq = req.body.data.shopcode
+
+    let [rows, fields] = await db.query('select * from paycoq.categories where shopcode = ?', shopcodereq)
     // console.log(rows)
 
     res.status(200).json({rows: rows})
@@ -21,6 +24,7 @@ router.post('/menucategory', async function (req, res) {
 router.post('/categories', async function (req, res) {
 
     let curpage = req.body.data.curpage
+    let shopcode = req.body.data.shopcode
     let pageSize = 10;
 
     const DEFAULT_START_PAGE = 1;
@@ -34,6 +38,7 @@ router.post('/categories', async function (req, res) {
     }
     //offset,limit
     let result = [
+        shopcode,
         (curpage - 1) * Number(pageSize),
         Number(pageSize)
     ]
@@ -41,10 +46,10 @@ router.post('/categories', async function (req, res) {
     // console.log(result[1])
     //조인문 쿼리
 
-    let joinquery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc limit ?,?"
+    let cateNpd = "select * from categories as c cross join products as p on c.ctnum = p.ctnum where c.shopcode=? order by p.pdnum asc limit ?,?"
 
     // 게시물 갯수
-    let articleLengthQuery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc"
+    let articleLengthQuery = "select * from categories as c right outer join products p on c.ctnum = p.ctnum order by p.pdnum asc"
 
 
     let [articleLengthBefore] = await db.query(articleLengthQuery)
@@ -52,7 +57,7 @@ router.post('/categories', async function (req, res) {
     console.log("목록 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 서브카테고리 조인문
-    let [rows, joinfields] = await db.query(joinquery, result);
+    let [rows, joinfields] = await db.query(cateNpd, result);
 
     let articles = {rows: rows, length: ActualArticleLength}
     // console.log(rows)
@@ -60,7 +65,6 @@ router.post('/categories', async function (req, res) {
 })
 
 router.post('/addcategory', async function (req, res) {
-
     let ctvalues = new Array()
     _.map(req.body, (value, key, collection) => {
         ctvalues.push(value)
@@ -68,9 +72,8 @@ router.post('/addcategory', async function (req, res) {
         console.log("벨류", value)
         console.log("콜렉션", collection)
     })
-
     // console.log(ctvalues)
-    let insertquery = "insert into paycoq.categories values(null, ?,?,?)"
+    let insertquery = "insert into paycoq.categories values(null, ?,?,?,?)"
     let [rows, ctfields] = await db.query(insertquery, ctvalues)
     res.status(200).json(rows)
 
@@ -78,7 +81,9 @@ router.post('/addcategory', async function (req, res) {
 
 router.post('/menus', async function (req, res) {
     let curpage = req.body.data.curpage
+    let shopcode = req.body.data.shopcode
     let pageSize = 5;
+
 
     const DEFAULT_START_PAGE = 1;
     const DEFAULT_PAGE_SIZE = 5;
@@ -91,6 +96,7 @@ router.post('/menus', async function (req, res) {
     }
     //offset,limit
     let result = [
+        shopcode,
         (curpage - 1) * Number(pageSize),
         Number(pageSize)
     ]
@@ -98,18 +104,18 @@ router.post('/menus', async function (req, res) {
     // console.log(result[1])
     //조인문 쿼리
 
-    let joinquery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc limit ?,?"
+    let cateNpd = "select * from categories as c cross join products as p on c.ctnum = p.ctnum where c.shopcode=? order by p.pdnum asc limit ?,?"
 
     // 게시물 갯수
-    let articleLengthQuery = "select * from categories as a right outer join products b on a.ctnum = b.ctnum order by b.pdnum asc"
+    let articleLengthQuery = "select * from categories as c right outer join products p on c.ctnum = p.ctnum where c.shopcode=? order by p.pdnum asc"
 
 
-    let [articleLengthBefore] = await db.query(articleLengthQuery)
+    let [articleLengthBefore] = await db.query(articleLengthQuery, shopcode)
     let ActualArticleLength = Math.ceil(articleLengthBefore.length / 5)
     console.log("목록 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 프로덕츠 조인문
-    let [rows, joinfields] = await db.query(joinquery, result);
+    let [rows, joinfields] = await db.query(cateNpd, result);
 
     let articles = {rows: rows, length: ActualArticleLength}
     // console.log(rows)
@@ -128,7 +134,7 @@ router.post("/pdupload", pdupload.single("image"), (req, res) => {
             .toBuffer((err, buffer) => {
                 if (err) throw err;
                 //압축된 파일 새로 저장(덮어씌우기)
-                fs.writeFile(req.file.path, buffer, (err) => {
+                fs.writeFile(req.file.path, buffer , (err) => {
                     if (err) throw err;
                 })
             })
@@ -140,7 +146,8 @@ router.post("/pdupload", pdupload.single("image"), (req, res) => {
 
 router.post("/addMenu", async function (req, res) {
     let products = new Array()
-    //req.body.data 까지 해야함
+    
+    //req.body.data 까지 해야함, 프론트에서 data에 json으로 감싸서 보내기때문
     _.map(req.body.data, (value, key, collection) => {
         products.push(value)
         console.log("키", key)
@@ -148,7 +155,7 @@ router.post("/addMenu", async function (req, res) {
         console.log("콜렉션", collection)
     })
 
-    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null, null)"
+    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null, null,?, ?)"
     let [rows, fields] = await db.query(insertquery, products)
 
     res.status(200).json(rows)
