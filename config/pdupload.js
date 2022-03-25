@@ -16,13 +16,18 @@ if (!fs.existsSync(imageDir)) {
 const pdupload = multer({
     storage: multer.diskStorage({
         destination(req, file, done) {
+            console.log("req ========>",req)
             // shopcode에 따른 저장경로 분배
-            console.log("shopcode : ", req.body.shopcode);
-            console.log("haeder : ", req.headers.shopcode);
+            // console.log("shopcode : ", req.body.shopcode);
+            // console.log("haeder : ", req.headers.shopcode);
+            console.log("mul shopcode : ", req.body.shopcode);
+            console.log("mul pdname : ", req.body.pdname);
+            console.log( typeof req.body.pdname);
             console.log(done)
             done(null, imageDir);
         }, filename(req, file, done) {
-            const shopcode = req.headers.shopcode
+            const shopcode = req.body.shopcode
+            // const pdname = req.body.pdname
             // const productcode = req.body.productcode
             // const nameset = shopcode + "-" + productcode
             // console.log("nameset ", shopcode)
