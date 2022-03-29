@@ -16,7 +16,7 @@ if (!fs.existsSync(imageDir)) {
 const pdupload = multer({
     storage: multer.diskStorage({
         destination(req, file, done) {
-            console.log("req ========>",req)
+            // console.log("req ========>",req)
             // shopcode에 따른 저장경로 분배
             // console.log("shopcode : ", req.body.shopcode);
             // console.log("haeder : ", req.headers.shopcode);

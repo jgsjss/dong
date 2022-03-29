@@ -7,6 +7,7 @@ const _ = require("lodash");
 const {pdupload} = require("../config/pdupload")
 const sharp = require("sharp")
 const fs = require("fs")
+const {readdirSync} = require("fs");
 
 
 router.post('/menucategory', async function (req, res) {
@@ -53,8 +54,8 @@ router.post('/categories', async function (req, res) {
 
 
     let [articleLengthBefore] = await db.query(articleLengthQuery)
-    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
-    console.log("목록 리스트 갯수 : ", ActualArticleLength)
+    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)-1
+    console.log("카테고리 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 서브카테고리 조인문
     let [rows, joinfields] = await db.query(cateNpd, result);
@@ -84,7 +85,8 @@ router.post('/menus', async function (req, res) {
     let shopcode = req.body.data.shopcode
     let pageSize = 5;
 
-
+    console.log(curpage)
+    console.log(shopcode)
     const DEFAULT_START_PAGE = 1;
     const DEFAULT_PAGE_SIZE = 5;
 
@@ -112,7 +114,7 @@ router.post('/menus', async function (req, res) {
 
     let [articleLengthBefore] = await db.query(articleLengthQuery, shopcode)
     let ActualArticleLength = Math.ceil(articleLengthBefore.length / 5)
-    console.log("목록 리스트 갯수 : ", ActualArticleLength)
+    console.log("메뉴 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 프로덕츠 조인문
     let [rows, joinfields] = await db.query(cateNpd, result);
@@ -134,7 +136,7 @@ router.post("/pdupload", pdupload.single("image"), function (req, res) {
             .toBuffer((err, buffer) => {
                 if (err) throw err;
                 //압축된 파일 새로 저장(덮어씌우기)
-                fs.writeFile(req.file.path, buffer , (err) => {
+                fs.writeFile(req.file.path, buffer, (err) => {
                     if (err) throw err;
                 })
             })
@@ -146,7 +148,7 @@ router.post("/pdupload", pdupload.single("image"), function (req, res) {
 
 router.post("/addMenu", async function (req, res) {
     let products = new Array()
-    
+
     //req.body.data 까지 해야함, 프론트에서 data에 json으로 감싸서 보내기때문
     _.map(req.body.data, (value, key, collection) => {
         products.push(value)
@@ -161,8 +163,21 @@ router.post("/addMenu", async function (req, res) {
     res.status(200).json(rows)
 })
 
-router.get("/join",async function(req,res,next  ){
+router.get("/join", async function (req, res, next) {
 
 })
+router.get("/pdimage", async function (req, res, next) {
+    // const pdimage = require("../uploads/pdimage")
+    // const url=req.query.pdnum
+    let imgList = []
+    let folder = "./uploads/pdimage"
+    const files = fs.readdirSync(folder).forEach(file => {
+        imgList.push(file)
+        console.log(file)
+    })
+
+    res.status(200).json(imgList)
+})
+
 
 module.exports = router;
