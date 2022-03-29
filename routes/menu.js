@@ -50,11 +50,10 @@ router.post('/categories', async function (req, res) {
     let cateNpd = "select * from categories as c cross join products as p on c.ctnum = p.ctnum where c.shopcode=? order by p.pdnum asc limit ?,?"
 
     // 게시물 갯수
-    let articleLengthQuery = "select * from categories as c right outer join products p on c.ctnum = p.ctnum order by p.pdnum asc"
+    let articleLengthQuery = "select * from categories as c right outer join products p on c.ctnum = p.ctnum where c.shopcode=? order by p.pdnum asc"
 
-
-    let [articleLengthBefore] = await db.query(articleLengthQuery)
-    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)-1
+    let [articleLengthBefore] = await db.query(articleLengthQuery, shopcode)
+    let ActualArticleLength = Math.ceil(articleLengthBefore.length / 10)
     console.log("카테고리 리스트 갯수 : ", ActualArticleLength)
     // 게시물 갯수
     //카테고리와 서브카테고리 조인문
