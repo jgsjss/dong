@@ -15,9 +15,13 @@ const fileFilter = (req, file, cb) => {
 
 //이미지파일 저장경로, 경로에 폴더가 없을경우 자동 생성
 const imageDir = 'uploads/image/';
-if(!fs.existsSync(imageDir)){
-    fs.mkdtempSync(imageDir)
-}
+
+// !fs.existsSync(imageDir)&&fs.mkdirSync(imageDir);
+//경로가 이미 존재한다면 콘솔창에 메시지 출력
+fs.mkdir(imageDir, err => {
+    if(err&&err.code !="EEXIST") throw"up"
+    console.log("Already Exists!")
+})
 
 
 const upload = multer({
