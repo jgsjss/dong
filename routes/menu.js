@@ -124,7 +124,6 @@ router.post('/menus', async function (req, res) {
 })
 
 router.post("/pdupload", pdupload.single("image"), function (req, res) {
-
     let shopcode = req.header("shopcode")
     console.log("컨트롤러에서 뽑은 req.header('shopcode') : ", shopcode)
     // const usercookie = req.body.shopcode
@@ -142,14 +141,15 @@ router.post("/pdupload", pdupload.single("image"), function (req, res) {
                 })
             })
     } catch (err) {
-        console.log(err)
+        console.log("err", err)
     }
-    res.status(200).json(1);
+    res.status(200).json(1)
 })
 
 router.post("/addMenu", async function (req, res) {
     let products = new Array()
 
+    console.log("BE addmenu go")
     //req.body.data 까지 해야함, 프론트에서 data에 json으로 감싸서 보내기때문
     _.map(req.body.data, (value, key, collection) => {
         products.push(value)
@@ -158,7 +158,7 @@ router.post("/addMenu", async function (req, res) {
         // console.log("콜렉션", collection)
     })
 
-    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, null, null, null,?, ?)"
+    let insertquery = "insert into paycoq.products value(null, ?, ?, ?, ?, ?, null, null,?, ?)"
     let [rows, fields] = await db.query(insertquery, products)
 
     res.status(200).json(rows)

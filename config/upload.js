@@ -20,7 +20,7 @@ const imageDir = 'uploads/image/';
 //경로가 이미 존재한다면 콘솔창에 메시지 출력
 fs.mkdir(imageDir, err => {
     if(err&&err.code !="EEXIST") throw"up"
-    console.log("Already Exists!")
+    console.log("사업자등록증 디렉토리가 이미 존재합니다!")
 })
 
 
