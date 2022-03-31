@@ -124,8 +124,6 @@ router.post('/menus', async function (req, res) {
 })
 
 router.post("/pdupload", pdupload.single("image"), function (req, res) {
-    let shopcode = req.header("shopcode")
-    console.log("컨트롤러에서 뽑은 req.header('shopcode') : ", shopcode)
     // const usercookie = req.body.shopcode
     // console.log("usercookie: ", usercookie)
     // console.log("req.body.shopcode: ", req.body.shopcode)

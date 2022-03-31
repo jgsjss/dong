@@ -14,7 +14,7 @@ const imageDir = 'uploads/pdimage/'
 // !fs.existsSync(imageDir)&&fs.mkdirSync(imageDir);
 //경로가 이미 존재한다면 콘솔창에 메시지 출력
 fs.mkdir(imageDir, err => {
-    if(err&&err.code !="EEXIST") throw"up"
+    if (err && err.code != "EEXIST") throw"up"
     console.log("제품 이미지 디렉토리가 이미 존재합니다!")
 })
 
@@ -31,13 +31,14 @@ const pdupload = multer({
             // console.log(done)
             done(null, imageDir);
         }, filename(req, file, done) {
-            const shopcode  = req.header('shopcode');
+            const shopcode = req.header('shopcode');
+            const pdname2 = req.param('pdname');
             // const pdname1  = req.body.data.pdname;
-            const pdname2 = req.header('pdname')
+            // const pdname2 = req.header('pdname')
             // const pdname3 = req.headers('pdname')
-            console.log("뮬터에서 뽑은 샵코드 : ", shopcode )
+            // console.log("뮬터에서 뽑은 샵코드 : ", shopcode )
             // console.log("뮬터에서 뽑은 pdname1 : ", pdname1 )
-            console.log("뮬터에서 뽑은 pdname2 : ", pdname2 )
+            // console.log("뮬터에서 뽑은 pdname2 : ", pdname2 )
             // console.log("뮬터에서 뽑은 pdname3 : ", pdname3 )
             // shopcode = cookies.keys("shopCode")
             // for(let i = 0; i <= shopcode.length; i++ ){
@@ -56,15 +57,17 @@ const pdupload = multer({
             //     console.log("뮬터 안에서 쿠키불러온 후 뽑은 샵코드3: ",shopcode[i])
             // }
             const ext = path.extname(file.originalname);
+            console.log("뮬터 ext : ", ext)
+            console.log("file original name ", file.originalname)
             // const timestamp = new Date().getTime().valueOf();
             // console.log("ext : " + ext)
             // console.log("original : " + file.originalname)
             // done(null, file.originalname)
             // const filename = path.basename(shopcode + '_' + file.originalname );
-            console.log("BE ",pdname2)
-            const filename = path.basename(shopcode + '_' + pdname2+ext );
+            // console.log("BE ",pdname2)
+            const filename = path.basename(shopcode.concat("_").concat(pdname2));
             // console.log("filename : " + filename)
-            done(null, filename);
+            done(null, filename+ext);
         },
     }),
 })
