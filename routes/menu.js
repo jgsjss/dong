@@ -129,7 +129,7 @@ router.post("/pdupload", pdupload.single("image"), function (req, res) {
     // console.log("req.body.shopcode: ", req.body.shopcode)
     try {
         sharp(req.file.path) //압축할 이미지 경로
-            .resize({width: 300}) //비율을 유지하며 가로 크기 줄이기(반응형)
+            .resize({width: 350, height: 450})//비율을 유지하며 가로 크기 줄이기(반응형)
             .withMetadata()  //이미지의 exif 데이터 유지
             .toBuffer((err, buffer) => {
                 if (err) throw err;

@@ -33,6 +33,12 @@ const pdupload = multer({
         }, filename(req, file, done) {
             const shopcode = req.header('shopcode');
             const pdname2 = req.param('pdname');
+            const test = req.body.test;
+            // const test1 = req.data.test;
+            console.log("뮬터 샵코드", shopcode)
+            console.log("뮬터 pdname2", pdname2)
+            console.log("뮬터 test",test)
+            // console.log("뮬터 test",test1)
             // const pdname1  = req.body.data.pdname;
             // const pdname2 = req.header('pdname')
             // const pdname3 = req.headers('pdname')

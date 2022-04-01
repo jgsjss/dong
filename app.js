@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 // 내장 기능 json 제공 기능을 추가
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static('uploads'));
