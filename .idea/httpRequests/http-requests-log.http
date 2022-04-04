@@ -1,0 +1,97 @@
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+  "userId": "2qweqwe",
+  "userPw": "qweqwe123",
+  "userName": "asdqwe",
+  "biznum": "1231512333",
+  "phNum": "01011512225",
+  "bizAddr1": "ddd",
+  "bizAddr2": "qwe",
+  "bizZip": "123",
+  "managename": "full",
+  "mgphnum": "01122523333",
+  "mgMail": "eetadev@naver.com",
+  "selected": 4,
+  "shopName": "ddddddd",
+  "shopPhNum": "01011112222",
+  "etc": ""
+}
+
+<> 2022-04-04T110719.200.json
+
+###
+
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+
+  "userId": "2qweqwe",
+  "userPw": "qweqwe123",
+  "userName": "asdqwe",
+  "biznum": "1231512333",
+  "phNum": "01011512225",
+  "bizAddr1": "ddd",
+  "bizAddr2": "qwe",
+  "bizZip": "123",
+  "managename": "full",
+  "mgphnum": "01122523333",
+  "mgMail": "eetadev@naver.com",
+  "selected": 4,
+  "shopName": "ddddddd",
+  "shopPhNum": "01011112222",
+  "etc": ""
+}
+
+###
+
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+
+  "userId": "2qweqwe",
+  "userPw": "qweqwe123",
+  "userName": "asdqwe",
+  "biznum": "1231512333",
+  "phNum": "01011512225",
+  "bizAddr1": "ddd",
+  "bizAddr2": "qwe",
+  "bizZip": "123",
+  "managename": "full",
+  "mgphnum": "01122523333",
+  "mgMail": "eetadev@naver.com",
+  "selected": 4,
+  "shopName": "ddddddd",
+  "shopPhNum": "01011112222",
+  "etc": ""
+}
+
+###
+
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+
+  "userId": "2qweqwe",
+  "userPw": "qweqwe123",
+  "userName": "asdqwe",
+  "biznum": "1231512333",
+  "phNum": "01011512225",
+  "bizAddr1": "ddd",
+  "bizAddr2": "qwe",
+  "bizZip": "123",
+  "managename": "full",
+  "mgphnum": "01122523333",
+  "mgMail": "eetadev@naver.com",
+  "selected": 4,
+  "shopName": "ddddddd",
+  "shopPhNum": "01011112222",
+  "etc": ""
+}
+
+###
+
