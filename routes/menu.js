@@ -178,11 +178,14 @@ router.get("/pdimage", async function (req, res, next) {
     res.status(200).json(imgList)
 })
 
-router.delete("/deleteProducts", function (req, res) {
+router.post("/deleteProducts", async function (req, res) {
 
     let delarr = []
-    delarr = req.body.deletelist
-    let refineDelArr = delarr
+
+    delarr=req.body.data.deletelist
+
+
+    // let refineDelArr = delarr
     // delarr = delarr.values()
 
     console.log("delarr : ", delarr)
@@ -192,8 +195,8 @@ router.delete("/deleteProducts", function (req, res) {
     const deleteQuery = "delete from paycoq.products where pdnum =?"
     for (let i = 0; i < delarr.length; i++) {
         try {
-            let [err, result] = db.query(deleteQuery, delarr[i])
-            console.log("result : ", i, " 번째- ", result.affectedRows)
+            let [rows, fields] = await db.query(deleteQuery, delarr[i])
+            // console.log("result : ", i, " 번째- ", result.affectedRows)
         } catch (e) {
             // console.log(e)
             throw e
