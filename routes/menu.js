@@ -178,8 +178,16 @@ router.get("/pdimage", async function (req, res, next) {
     res.status(200).json(imgList)
 })
 
-router.post("/deleteCatenum", function(req, res ){
-    const [pdnums] = req.body.pdnum
+router.post("/deleteProducts", function(req, res ){
+
+    let delarray = []
+    _.map(req.body, (value, key, collection) =>{
+        delarray.push([value])
+    })
+
+    console.log("delarray : ",delarray)
+
+
 
     const deleteQuery="delete from products where pdnum in (?)"
 
