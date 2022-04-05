@@ -178,19 +178,29 @@ router.get("/pdimage", async function (req, res, next) {
     res.status(200).json(imgList)
 })
 
-router.post("/deleteProducts", function(req, res ){
+router.delete("/deleteProducts", function (req, res) {
 
-    let delarray = []
-    _.map(req.body, (value, key, collection) =>{
-        delarray.push([value])
-    })
+    let delarr = []
+    delarr = req.body.deletelist
+    let refineDelArr = delarr
+    // delarr = delarr.values()
 
-    console.log("delarray : ",delarray)
+    console.log("delarr : ", delarr)
+    console.log("delarr 길이: ", delarr.length)
 
 
-
-    const deleteQuery="delete from products where pdnum in (?)"
-
+    const deleteQuery = "delete from paycoq.products where pdnum =?"
+    for (let i = 0; i < delarr.length; i++) {
+        try {
+            let [err, result] = db.query(deleteQuery, delarr[i])
+            console.log("result : ", i, " 번째- ", result.affectedRows)
+        } catch (e) {
+            // console.log(e)
+            throw e
+        }
+    }
+    console.log("쿼리 종료")
+    res.status(200).json(1)
 })
 
 
