@@ -179,18 +179,14 @@ router.get("/pdimage", async function (req, res, next) {
 });
 
 router.post("/deleteProducts", async function (req, res) {
-
     let delarr = [];
-
     delarr = req.body.data.deletelist;
-
 
     // let refineDelArr = delarr
     // delarr = delarr.values()
 
     console.log("delarr : ", delarr);
     console.log("delarr 길이: ", delarr.length);
-
 
     const deleteQuery = "delete from paycoq.products where pdnum =?";
 
@@ -199,18 +195,18 @@ router.post("/deleteProducts", async function (req, res) {
     for (let i = 0; i < delarr.length; i++) {
         try {
             let [rows, fields] = await db.query(deleteQuery, delarr[i]);
+            let result = await db.query(deleteQuery, delarr[i]);
             console.log("result : ", rows.affectedRows);
+            // console.log("result : ", rows.changedRows + "개 삭제");
+            // console.log("result : ", result);
             // result = rows.affectedRows;
-
-
         } catch (e) {
             // console.log(e)
             // throw e;
             res.status(500).json(0);
         }
-
     }
-    res.status(200).json(1)
+    res.status(200).json(1);
 
     // console.log("쿼리 종료");
     // if (result == 1) {
@@ -220,5 +216,27 @@ router.post("/deleteProducts", async function (req, res) {
     // }
 });
 
+router.get("/dummy10", async function (req, res, next) {
+    let dummyQuery = "insert into paycoq.products value(null, ?, ?, ?, ?, ?, null, null,?, ?)";
 
+    // let dummyVar=[pdname,ctnum,price,pddesc,shopcode,userid,pdimage]
+
+    for (let i = 0; i < 10; i++) {
+        let dummyVar = [];
+        dummyVar[0] = "상품" + i;
+        dummyVar[1] = 4;
+        dummyVar[2] = i * 1000;
+        dummyVar[3] = "상품" + i + "입니다.";
+        dummyVar[4] = 9;
+        dummyVar[5] = "qweqwe";
+        dummyVar[6] = "2_zzzz.png";
+        try {
+            let [rows, fields] = await db.query(dummyQuery, dummyVar);
+            console.log("result : ", rows.affectedRows);
+        } catch (e) {
+            console.log("에러 발생 : ", e);
+        }
+    }
+    res.status(200).json("더미완료");
+});
 module.exports = router;

@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 const {urlencoded, request} = require("express");
 const jwt = require('jsonwebtoken');
@@ -10,7 +10,7 @@ const {decoded} = require("jsonwebtoken");
 router.post('/login', function (req, res, next) {
     const userid = req.body.userid;
     const userpw = req.body.userpw;
-    let myarr = new Array();
+    let myarr = [];
     sql = 'select * from user where userid = ?'
     data = db.query(sql, userid)
     data.then(async result => {
