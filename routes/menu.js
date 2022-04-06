@@ -200,22 +200,24 @@ router.post("/deleteProducts", async function (req, res) {
         try {
             let [rows, fields] = await db.query(deleteQuery, delarr[i]);
             console.log("result : ", rows.affectedRows);
-            result = rows.affectedRows;
+            // result = rows.affectedRows;
 
 
         } catch (e) {
             // console.log(e)
+            // throw e;
             res.status(500).json(0);
-            throw e;
         }
 
     }
-    console.log("쿼리 종료");
-    if (result == 1) {
-        res.status(200).json(1);
-    } else {
-        res.status(200).json(0);
-    }
+    res.status(200).json(1)
+
+    // console.log("쿼리 종료");
+    // if (result == 1) {
+    //     res.status(200).json(1);
+    // } else {
+    //     res.status(200).json(0);
+    // }
 });
 
 
