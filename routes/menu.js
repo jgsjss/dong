@@ -194,7 +194,7 @@ router.post("/deleteProducts", async function (req, res) {
 
     for (let i = 0; i < delarr.length; i++) {
         try {
-            let [rows, fields] = await db.query(deleteQuery, delarr[i]);
+            // let [rows, fields] = await db.query(deleteQuery, delarr[i]);
             let result = await db.query(deleteQuery, delarr[i]);
             console.log("result : ", rows.affectedRows);
             // console.log("result : ", rows.changedRows + "개 삭제");
