@@ -240,23 +240,33 @@ router.get("/dummy10", async function (req, res, next) {
     }
     res.status(200).json("더미완료");
 });
-router.post("/normalization",async function (req, res ){
-    let norarr = []
-    norarr = req.body.data.norlist
-    console.log("norarr : ", norarr)
-    const normalQuery = "update paycoq.products set status = '0' where pdnum = ?"
+router.post("/choosestatus", async function (req, res) {
+    let statusarr = []
+    statusarr = req.body.data.statuslist
+    let choose = req.body.data.choose
+    console.log("statusarr : ", statusarr)
 
-    for (let i = 0; i < norarr.length; i++) {
+    let statusQuery = ""
+
+    if (choose == 1) {
+        statusQuery = "update paycoq.products set status = '0' where pdnum = ?"
+    } else if (choose == 2) {
+        statusQuery = "update paycoq.products set status = '1' where pdnum = ?"
+    }
+
+    for (let i = 0; i < statusarr.length; i++) {
         try {
-            let result = await db.query(normalQuery, norarr[i]);
-
+            let result = await db.query(statusQuery, statusarr[i]);
             console.log("result : ", result);
         } catch (e) {
-
             res.status(500).json(0);
         }
     }
-    res.status(200).json(1);
+    if (choose == 1) {
+        res.status(200).json(1);
+    } else if (choose == 2) {
+        res.status(200).json(2);
 
+    }
 })
 module.exports = router;

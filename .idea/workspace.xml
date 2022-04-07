@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e4c9a4f-2f75-4ee8-aed5-8b898f72b335" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/menu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,10 +61,20 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration name="menu.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/routes/menu.js" working-dir="$PROJECT_DIR$/routes">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.menu.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ebffdac2-6492-4004-b830-92e6d63fbd62" name="Changes" comment="" />
+      <changelist id="6e4c9a4f-2f75-4ee8-aed5-8b898f72b335" name="Changes" comment="" />
       <created>1649028868512</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -83,6 +94,7 @@
       <workItem from="1649131556348" duration="1821000" />
       <workItem from="1649138375863" duration="7156000" />
       <workItem from="1649199166136" duration="1879000" />
+      <workItem from="1649372471800" duration="1605000" />
     </task>
     <servers />
   </component>
