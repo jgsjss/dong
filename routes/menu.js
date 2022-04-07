@@ -230,6 +230,7 @@ router.get("/dummy10", async function (req, res, next) {
         dummyVar[4] = 9;
         dummyVar[5] = "qweqwe";
         dummyVar[6] = "2_zzzz.png";
+        dummyVar[7] = "0";
         try {
             let [rows, fields] = await db.query(dummyQuery, dummyVar);
             console.log("result : ", rows.affectedRows);
@@ -239,4 +240,23 @@ router.get("/dummy10", async function (req, res, next) {
     }
     res.status(200).json("더미완료");
 });
+router.post("/normalization",async function (req, res ){
+    let norarr = []
+    norarr = req.body.data.norlist
+    console.log("norarr : ", norarr)
+    const normalQuery = "update paycoq.products set status = '0' where pdnum = ?"
+
+    for (let i = 0; i < norarr.length; i++) {
+        try {
+            let result = await db.query(normalQuery, norarr[i]);
+
+            console.log("result : ", result);
+        } catch (e) {
+
+            res.status(500).json(0);
+        }
+    }
+    res.status(200).json(1);
+
+})
 module.exports = router;
