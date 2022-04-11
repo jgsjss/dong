@@ -1,14 +1,8 @@
-create table categories
-(
-    ctnum       int auto_increment,
-    pdcategory  varchar(50)  not null
-        primary key,
-    description varchar(200) null,
-    status      varchar(20)  not null,
-    shopcode    int(20)      not null,
-    constraint categories_ctnum_uindex
-        unique (ctnum)
-);
+1. paycoq 스키마 생성 ddl
+
+create schema paycoq collate utf8mb4_general_ci;
+
+2. user 테이블 생성
 
 create table user
 (
@@ -42,19 +36,33 @@ create table user
         foreign key (shopcode) references user (usernum)
 );
 
+3. categories 테이블 생성
+create table categories
+(
+    ctnum       int auto_increment,
+    pdcategory  varchar(50)  not null,
+    description varchar(200) null,
+    status      varchar(20)  not null,
+    shopcode    int(20)      not null,
+    constraint categories_ctnum_uindex
+        unique (ctnum)
+);
+
+4. products 테이블 생성
 create table products
 (
-    pdnum         int auto_increment,
-    pdname        varchar(100) not null
+    pdnum         int auto_increment
         primary key,
+    pdname        varchar(100) not null,
     ctnum         int(20)      not null,
     price         int          null,
     pddescription varchar(150) null,
-    pdimage       varchar(100) null,
+    shopcode      int(20)      null,
     pdoption1     varchar(50)  null,
     pdoption2     varchar(50)  null,
-    shopcode      int(20)      null,
     userid        varchar(10)  null,
+    pdimage       varchar(100) null,
+    status        varchar(20)  null,
     constraint products_pdnum_uindex
         unique (pdnum),
     constraint products_pdoption_uindex
@@ -65,6 +73,7 @@ create table products
         foreign key (userid) references user (userid)
 );
 
+5. option 테이블 생성
 create table `option`
 (
     opnum   int auto_increment,
@@ -79,17 +88,3 @@ create table `option`
     constraint option_products_pdnum_fk
         foreign key (pdnum) references products (pdnum)
 );
-
-create table shopmenu
-(
-    shopcode int(20) null,
-    category int     null,
-    product  int     null,
-    constraint shopmenu_categories_ctnum_fk
-        foreign key (category) references categories (ctnum),
-    constraint shopmenu_products_pdnum_fk
-        foreign key (product) references products (pdnum),
-    constraint shopmenu_user_usernum_fk
-        foreign key (shopcode) references user (usernum)
-);
-

@@ -186,17 +186,18 @@ router.post("/deleteProducts", async function (req, res) {
     // delarr = delarr.values()
     console.log("delarr : ", delarr);
     console.log("delarr 길이: ", delarr.length);
-    const selQuery = "select pdimage from paycoq.products where pdnum = ?";
+    const selQuery = "select * from paycoq.products where pdnum = ?";
     const deleteQuery = "delete from paycoq.products where pdnum =?";
     for (let i = 0; i < delarr.length; i++) {
-        try {
+
+            console.log("delarr[i] : ", typeof delarr[i])
             // try,catch와 async, await는 동일한 패턴이다.
            let [delimage, fields] = await db.query(selQuery, delarr[i])
-            console.log("delimage : ", delimage )
-            console.log("fields : ", fields )
-            let img = delimage[i].pdimage
+            let result = delimage[i].pdimage
+            console.log("result : ", result )
+            // console.log("fields : ", fields )
             let abspath = path.resolve("uploads", "pdimage")
-            let target = abspath.concat("/" + img)
+            let target = abspath.concat("/" + result)
             fs.unlink(target, function (err) {
                 console.log((err))
             })
@@ -205,11 +206,10 @@ router.post("/deleteProducts", async function (req, res) {
             // console.log("result : ", rows.changedRows + "개 삭제");
             // console.log("result : ", result);
             // result = rows.affectedRows;
-        } catch (e) {
+
             // console.log(e)
             // throw e;
-            res.status(500).json(0);
-        }
+
     }
     res.status(200).json(1);
 });
@@ -225,9 +225,9 @@ router.get("/dummy10", async function (req, res, next) {
         dummyVar[1] = 4;
         dummyVar[2] = i * 1000;
         dummyVar[3] = "상품" + i + "입니다.";
-        dummyVar[4] = 9;
+        dummyVar[4] = 2;
         dummyVar[5] = "qweqwe";
-        dummyVar[6] = "2_zzzz.png";
+        dummyVar[6] = "2_zzzz"+i+".png";
         dummyVar[7] = "0";
         try {
             let [rows, fields] = await db.query(dummyQuery, dummyVar);

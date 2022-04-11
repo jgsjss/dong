@@ -5,10 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e4c9a4f-2f75-4ee8-aed5-8b898f72b335" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pdimage/2_zzzz9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b9a494f4-7403-43f2-9bbc-9e02673ccd56.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b9a494f4-7403-43f2-9bbc-9e02673ccd56.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ddl.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ddl.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/pdimage/2_dfsa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/pdimage/2_시그니처 라떼.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/pdimage/2_bnmbnmbnmbnm.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/pdimage/2_bnmbnmbmn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/pdimage/2_qweqweqweqweqwe.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/pdimage/2_cvbcvb.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/pdimage/2_콜드브루 아메리카노.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +54,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="27JCawKO57Rp84rWzy1LaHBgvCw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -50,7 +66,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/uploads/pdimage" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -62,6 +78,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user1\Desktop\paycoqServer\uploads\pdimage" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="menu.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/routes/menu.js" working-dir="$PROJECT_DIR$/routes">
@@ -100,6 +121,7 @@
       <workItem from="1649379452904" duration="3063000" />
       <workItem from="1649392168216" duration="2222000" />
       <workItem from="1649631420680" duration="5243000" />
+      <workItem from="1649639589526" duration="7392000" />
     </task>
     <servers />
   </component>
