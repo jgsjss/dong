@@ -8,6 +8,7 @@ const {pdupload} = require("../config/pdupload");
 const sharp = require("sharp");
 const fs = require("fs");
 const {readdirSync} = require("fs");
+const {stringify} = require("nodemon/lib/utils");
 
 
 router.post("/menucategory", async function (req, res) {
@@ -181,21 +182,25 @@ router.get("/pdimage", async function (req, res, next) {
 router.post("/deleteProducts", async function (req, res) {
     let delarr = [];
     delarr = req.body.data.deletelist;
-
     // let refineDelArr = delarr
     // delarr = delarr.values()
-
     console.log("delarr : ", delarr);
     console.log("delarr 길이: ", delarr.length);
-
+    const selQuery = "select pdimage from paycoq.products where pdnum = ?";
     const deleteQuery = "delete from paycoq.products where pdnum =?";
-
-    let result = null;
-
     for (let i = 0; i < delarr.length; i++) {
         try {
-            // let [rows, fields] = await db.query(deleteQuery, delarr[i]);
-            let result = await db.query(deleteQuery, delarr[i]);
+            // try,catch와 async, await는 동일한 패턴이다.
+           let [delimage, fields] = await db.query(selQuery, delarr[i])
+            console.log("delimage : ", delimage )
+            console.log("fields : ", fields )
+            let img = delimage[i].pdimage
+            let abspath = path.resolve("uploads", "pdimage")
+            let target = abspath.concat("/" + img)
+            fs.unlink(target, function (err) {
+                console.log((err))
+            })
+            await db.query(deleteQuery, delarr[i]);
             // console.log("result : ", rows.affectedRows);
             // console.log("result : ", rows.changedRows + "개 삭제");
             // console.log("result : ", result);
@@ -207,13 +212,6 @@ router.post("/deleteProducts", async function (req, res) {
         }
     }
     res.status(200).json(1);
-
-    // console.log("쿼리 종료");
-    // if (result == 1) {
-    //     res.status(200).json(1);
-    // } else {
-    //     res.status(200).json(0);
-    // }
 });
 
 router.get("/dummy10", async function (req, res, next) {
@@ -252,6 +250,8 @@ router.post("/choosestatus", async function (req, res) {
         statusQuery = "update paycoq.products set status = '0' where pdnum = ?"
     } else if (choose == 2) {
         statusQuery = "update paycoq.products set status = '1' where pdnum = ?"
+    } else if (choose == 3) {
+        statusQuery = "update paycoq.products set status = '2' where pdnum = ?"
     }
 
     for (let i = 0; i < statusarr.length; i++) {
@@ -266,7 +266,8 @@ router.post("/choosestatus", async function (req, res) {
         res.status(200).json(1);
     } else if (choose == 2) {
         res.status(200).json(2);
-
+    } else if (choose == 3) {
+        res.status(200).json(3);
     }
 })
 module.exports = router;
