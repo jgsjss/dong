@@ -190,25 +190,25 @@ router.post("/deleteProducts", async function (req, res) {
     const deleteQuery = "delete from paycoq.products where pdnum =?";
     for (let i = 0; i < delarr.length; i++) {
 
-            console.log("delarr[i] : ", typeof delarr[i])
-            // try,catch와 async, await는 동일한 패턴이다.
-           let [delimage, fields] = await db.query(selQuery, delarr[i])
-            let result = delimage[i].pdimage
-            console.log("result : ", result )
-            // console.log("fields : ", fields )
-            let abspath = path.resolve("uploads", "pdimage")
-            let target = abspath.concat("/" + result)
-            fs.unlink(target, function (err) {
-                console.log((err))
-            })
-            await db.query(deleteQuery, delarr[i]);
-            // console.log("result : ", rows.affectedRows);
-            // console.log("result : ", rows.changedRows + "개 삭제");
-            // console.log("result : ", result);
-            // result = rows.affectedRows;
+        console.log("delarr[i] : ", typeof delarr[i]);
+        // try,catch와 async, await는 동일한 패턴이다.
+        let [delimage, fields] = await db.query(selQuery, delarr[i]);
+        let result = delimage[i].pdimage;
+        console.log("result : ", result);
+        // console.log("fields : ", fields )
+        let abspath = path.resolve("uploads", "pdimage");
+        let target = abspath.concat("/" + result);
+        fs.unlink(target, function (err) {
+            console.log((err));
+        });
+        await db.query(deleteQuery, delarr[i]);
+        // console.log("result : ", rows.affectedRows);
+        // console.log("result : ", rows.changedRows + "개 삭제");
+        // console.log("result : ", result);
+        // result = rows.affectedRows;
 
-            // console.log(e)
-            // throw e;
+        // console.log(e)
+        // throw e;
 
     }
     res.status(200).json(1);
@@ -227,7 +227,7 @@ router.get("/dummy10", async function (req, res, next) {
         dummyVar[3] = "상품" + i + "입니다.";
         dummyVar[4] = 2;
         dummyVar[5] = "qweqwe";
-        dummyVar[6] = "2_zzzz"+i+".png";
+        dummyVar[6] = "2_zzzz" + i + ".png";
         dummyVar[7] = "0";
         try {
             let [rows, fields] = await db.query(dummyQuery, dummyVar);
@@ -239,19 +239,19 @@ router.get("/dummy10", async function (req, res, next) {
     res.status(200).json("더미완료");
 });
 router.post("/choosestatus", async function (req, res) {
-    let statusarr = []
-    statusarr = req.body.data.statuslist
-    let choose = req.body.data.choose
-    console.log("statusarr : ", statusarr)
+    let statusarr = [];
+    statusarr = req.body.data.statuslist;
+    let choose = req.body.data.choose;
+    console.log("statusarr : ", statusarr);
 
-    let statusQuery = ""
+    let statusQuery = "";
 
     if (choose == 1) {
-        statusQuery = "update paycoq.products set status = '0' where pdnum = ?"
+        statusQuery = "update paycoq.products set status = '0' where pdnum = ?";
     } else if (choose == 2) {
-        statusQuery = "update paycoq.products set status = '1' where pdnum = ?"
+        statusQuery = "update paycoq.products set status = '1' where pdnum = ?";
     } else if (choose == 3) {
-        statusQuery = "update paycoq.products set status = '2' where pdnum = ?"
+        statusQuery = "update paycoq.products set status = '2' where pdnum = ?";
     }
 
     for (let i = 0; i < statusarr.length; i++) {
@@ -269,5 +269,17 @@ router.post("/choosestatus", async function (req, res) {
     } else if (choose == 3) {
         res.status(200).json(3);
     }
-})
+});
+
+router.get("/searchkeyword", async function (req, res) {
+    let keyword = req.query.keyword;
+    keyword = "%" + keyword + "%";
+    console.log("keyword : ", keyword);
+    let searchQuery = "select * from paycoq.products where pdname like ? where userid = 'qweqwe'";
+    // console.log(serachQuery);
+    let [rows, fields] = await db.query(searchQuery,keyword);
+    console.log("rows : ", rows);
+    res.status(200).json(rows);
+});
+
 module.exports = router;
