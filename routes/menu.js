@@ -179,16 +179,11 @@ router.get("/pdimage", async function (req, res, next) {
     res.status(200).json(imgList);
 });
 
-router.post("/deleteProducts", async function (req, res) {
-    let delarr = [];
-    delarr = req.body.data.deletelist;
-    // let refineDelArr = delarr
-    // delarr = delarr.values()
-    console.log("delarr : ", delarr);
-    console.log("delarr 길이: ", delarr.length);
-    const selQuery = "select * from paycoq.products where pdnum = ?";
-    const deleteQuery = "delete from paycoq.products where pdnum =?";
-    for (let i = 0; i < delarr.length; i++) {
+router.post("/deleteproducts", async function (req, res) {
+   let delarr = req.body.data.deletelist;
+
+    let selQuery = "select pdimage from paycoq.products where pdnum = ?";
+    let deleteQuery = "delete from paycoq.products where pdnum =?";
 
         console.log("delarr[i] : ", typeof delarr[i]);
         // try,catch와 async, await는 동일한 패턴이다.
@@ -210,12 +205,30 @@ router.post("/deleteProducts", async function (req, res) {
         // console.log(e)
         // throw e;
 
+
+    for (let i = 0; i < delarr.length; i++) {
+        // try,catch와 async, await는 동일한 패턴이다.
+
+        [rows, fields] = await db.query(selQuery, delarr[i])
+        delimage = rows[0].pdimage
+        console.log("rows : ",  rows)
+        console.log("delimage : ",  delimage)
+
+        // let abspath = path.resolve("uploads", "pdimage")
+        // let target = abspath.concat("/" + delimage )
+        // fs.unlink(target, function (err) {
+        //     console.log((err))
+        // })
+        // await db.query(deleteQuery, delarr[i]);
     }
+
+
+
     res.status(200).json(1);
 });
 
 router.get("/dummy10", async function (req, res, next) {
-    let dummyQuery = "insert into paycoq.products value(null, ?, ?, ?, ?, ?, null, null,?, ?)";
+    let dummyQuery = "insert into paycoq.products value(null, ?, ?, ?, ?, ?, null, null,?, ?, ?)";
 
     // let dummyVar=[pdname,ctnum,price,pddesc,shopcode,userid,pdimage]
 
@@ -225,7 +238,7 @@ router.get("/dummy10", async function (req, res, next) {
         dummyVar[1] = 4;
         dummyVar[2] = i * 1000;
         dummyVar[3] = "상품" + i + "입니다.";
-        dummyVar[4] = 2;
+        dummyVar[4] = 9;
         dummyVar[5] = "qweqwe";
         dummyVar[6] = "2_zzzz" + i + ".png";
         dummyVar[7] = "0";
@@ -252,6 +265,12 @@ router.post("/choosestatus", async function (req, res) {
         statusQuery = "update paycoq.products set status = '1' where pdnum = ?";
     } else if (choose == 3) {
         statusQuery = "update paycoq.products set status = '2' where pdnum = ?";
+    if (choose == 0) {
+        statusQuery = "update paycoq.products set status = '0' where pdnum = ?"
+    } else if (choose == 1) {
+        statusQuery = "update paycoq.products set status = '1' where pdnum = ?"
+    } else if (choose == 2) {
+        statusQuery = "update paycoq.products set status = '2' where pdnum = ?"
     }
 
     for (let i = 0; i < statusarr.length; i++) {
@@ -259,15 +278,15 @@ router.post("/choosestatus", async function (req, res) {
             let result = await db.query(statusQuery, statusarr[i]);
             console.log("result : ", result);
         } catch (e) {
-            res.status(500).json(0);
+            res.status(500).json(3);
         }
     }
-    if (choose == 1) {
+    if (choose == 0) {
+        res.status(200).json(0);
+    } else if (choose == 1) {
         res.status(200).json(1);
     } else if (choose == 2) {
         res.status(200).json(2);
-    } else if (choose == 3) {
-        res.status(200).json(3);
     }
 });
 
@@ -282,4 +301,14 @@ router.get("/searchkeyword", async function (req, res) {
     res.status(200).json(rows);
 });
 
+router.get("/searchkeyword", async function (req, res) {
+    let keyword = req.query.keyword;
+    keyword = "%" + keyword + "%";
+    console.log("keyword : ", keyword);
+    let searchQuery = "select * from paycoq.products where pdname like ? where userid = 'qweqwe'";
+    // console.log(serachQuery);
+    let [rows, fields] = await db.query(searchQuery,keyword);
+    console.log("rows : ", rows);
+    res.status(200).json(rows);
+});
 module.exports = router;
