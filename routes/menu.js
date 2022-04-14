@@ -191,13 +191,16 @@ router.post("/deleteproducts", async function (req, res) {
         // try,catch와 async, await는 동일한 패턴이다.
 
         [rows, fields] = await db.query(selQuery, delarr[i])
+        delimage = rows[0].pdimage
+        console.log("rows : ",  rows)
+        console.log("delimage : ",  delimage)
 
-        let abspath = path.resolve("uploads", "pdimage")
-        let target = abspath.concat("/" + rows)
-        fs.unlink(target, function (err) {
-            console.log((err))
-        })
-        await db.query(deleteQuery, delarr[i]);
+        // let abspath = path.resolve("uploads", "pdimage")
+        // let target = abspath.concat("/" + delimage )
+        // fs.unlink(target, function (err) {
+        //     console.log((err))
+        // })
+        // await db.query(deleteQuery, delarr[i]);
     }
 
 
