@@ -1,8 +1,27 @@
-1. paycoq 스키마 생성 ddl
+create table board
+(
+    num        int auto_increment
+        primary key,
+    id         varchar(10)  not null,
+    name       varchar(10)  not null,
+    subject    varchar(100) not null,
+    content    text         not null,
+    regist_day varchar(30)  null,
+    hit        int          null,
+    ip         varchar(20)  null
+)
+    charset = utf8;
 
-create schema paycoq collate utf8mb4_general_ci;
-
-2. user 테이블 생성
+create table categories
+(
+    ctnum       int auto_increment,
+    pdcategory  varchar(50)  not null,
+    description varchar(200) null,
+    status      varchar(20)  not null,
+    shopcode    int(20)      not null,
+    constraint categories_ctnum_uindex
+        unique (ctnum)
+);
 
 create table user
 (
@@ -36,19 +55,6 @@ create table user
         foreign key (shopcode) references user (usernum)
 );
 
-3. categories 테이블 생성
-create table categories
-(
-    ctnum       int auto_increment,
-    pdcategory  varchar(50)  not null,
-    description varchar(200) null,
-    status      varchar(20)  not null,
-    shopcode    int(20)      not null,
-    constraint categories_ctnum_uindex
-        unique (ctnum)
-);
-
-4. products 테이블 생성
 create table products
 (
     pdnum         int auto_increment
@@ -73,7 +79,6 @@ create table products
         foreign key (userid) references user (userid)
 );
 
-5. option 테이블 생성
 create table `option`
 (
     opnum   int auto_increment,
@@ -88,3 +93,4 @@ create table `option`
     constraint option_products_pdnum_fk
         foreign key (pdnum) references products (pdnum)
 );
+

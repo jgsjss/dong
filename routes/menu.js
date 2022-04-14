@@ -180,48 +180,47 @@ router.get("/pdimage", async function (req, res, next) {
 });
 
 router.post("/deleteproducts", async function (req, res) {
-   let delarr = req.body.data.deletelist;
+    let delarr = req.body.data.deletelist;
 
     let selQuery = "select pdimage from paycoq.products where pdnum = ?";
     let deleteQuery = "delete from paycoq.products where pdnum =?";
 
-        console.log("delarr[i] : ", typeof delarr[i]);
-        // try,catch와 async, await는 동일한 패턴이다.
-        let [delimage, fields] = await db.query(selQuery, delarr[i]);
-        let result = delimage[i].pdimage;
-        console.log("result : ", result);
-        // console.log("fields : ", fields )
-        let abspath = path.resolve("uploads", "pdimage");
-        let target = abspath.concat("/" + result);
-        fs.unlink(target, function (err) {
-            console.log((err));
-        });
-        await db.query(deleteQuery, delarr[i]);
-        // console.log("result : ", rows.affectedRows);
-        // console.log("result : ", rows.changedRows + "개 삭제");
-        // console.log("result : ", result);
-        // result = rows.affectedRows;
+    console.log("delarr[i] : ", typeof delarr[i]);
+    // try,catch와 async, await는 동일한 패턴이다.
+    let [delimage, fields] = await db.query(selQuery, delarr[i]);
+    let result = delimage[i].pdimage;
+    console.log("result : ", result);
+    // console.log("fields : ", fields )
+    let abspath = path.resolve("uploads", "pdimage");
+    let target = abspath.concat("/" + result);
+    fs.unlink(target, function (err) {
+        console.log((err));
+    });
+    await db.query(deleteQuery, delarr[i]);
+    // console.log("result : ", rows.affectedRows);
+    // console.log("result : ", rows.changedRows + "개 삭제");
+    // console.log("result : ", result);
+    // result = rows.affectedRows;
 
-        // console.log(e)
-        // throw e;
+    // console.log(e)
+    // throw e;
 
 
     for (let i = 0; i < delarr.length; i++) {
         // try,catch와 async, await는 동일한 패턴이다.
 
-        [rows, fields] = await db.query(selQuery, delarr[i])
-        delimage = rows[0].pdimage
-        console.log("rows : ",  rows)
-        console.log("delimage : ",  delimage)
+        [rows, fields] = await db.query(selQuery, delarr[i]);
+        delimage = rows[0].pdimage;
+        console.log("rows : ", rows);
+        console.log("delimage : ", delimage);
 
-        let abspath = path.resolve("uploads", "pdimage")
-        let target = abspath.concat("/" + delimage )
+        let abspath = path.resolve("uploads", "pdimage");
+        let target = abspath.concat("/" + delimage);
         fs.unlink(target, function (err) {
-            console.log((err))
-        })
+            console.log((err));
+        });
         await db.query(deleteQuery, delarr[i]);
     }
-
 
 
     res.status(200).json(1);
@@ -252,43 +251,46 @@ router.get("/dummy10", async function (req, res, next) {
     res.status(200).json("더미완료");
 });
 router.post("/choosestatus", async function (req, res) {
-    let statusarr = [];
-    statusarr = req.body.data.statuslist;
-    let choose = req.body.data.choose;
-    console.log("statusarr : ", statusarr);
+        let statusarr = [];
+        statusarr = req.body.data.statuslist;
+        let choose = req.body.data.choose;
+        console.log("statusarr : ", statusarr);
 
-    let statusQuery = "";
+        let statusQuery = "";
 
-    if (choose == 1) {
-        statusQuery = "update paycoq.products set status = '0' where pdnum = ?";
-    } else if (choose == 2) {
-        statusQuery = "update paycoq.products set status = '1' where pdnum = ?";
-    } else if (choose == 3) {
-        statusQuery = "update paycoq.products set status = '2' where pdnum = ?";
-    if (choose == 0) {
-        statusQuery = "update paycoq.products set status = '0' where pdnum = ?"
-    } else if (choose == 1) {
-        statusQuery = "update paycoq.products set status = '1' where pdnum = ?"
-    } else if (choose == 2) {
-        statusQuery = "update paycoq.products set status = '2' where pdnum = ?"
-    }
+        if (choose == 1) {
+            statusQuery = "update paycoq.products set status = '0' where pdnum = ?";
+        } else if (choose == 2) {
+            statusQuery = "update paycoq.products set status = '1' where pdnum = ?";
+        } else if (choose == 3) {
+            statusQuery = "update paycoq.products set status = '2' where pdnum = ?";
+            if (choose == 0) {
+                statusQuery = "update paycoq.products set status = '0' where pdnum = ?";
+            } else if (choose == 1) {
+                statusQuery = "update paycoq.products set status = '1' where pdnum = ?";
+            } else if (choose == 2) {
+                statusQuery = "update paycoq.products set status = '2' where pdnum = ?";
+            }
 
-    for (let i = 0; i < statusarr.length; i++) {
-        try {
-            let result = await db.query(statusQuery, statusarr[i]);
-            console.log("result : ", result);
-        } catch (e) {
-            res.status(500).json(3);
+            for (let i = 0; i < statusarr.length; i++) {
+                try {
+                    let result = await db.query(statusQuery, statusarr[i]);
+                    console.log("result : ", result);
+                } catch (e) {
+                    res.status(500).json(3);
+                }
+            }
+            if (choose == 0) {
+                res.status(200).json(0);
+            } else if (choose == 1) {
+                res.status(200).json(1);
+            } else if (choose == 2) {
+                res.status(200).json(2);
+            }
         }
     }
-    if (choose == 0) {
-        res.status(200).json(0);
-    } else if (choose == 1) {
-        res.status(200).json(1);
-    } else if (choose == 2) {
-        res.status(200).json(2);
-    }
-});
+)
+;
 
 router.get("/searchkeyword", async function (req, res) {
     let keyword = req.query.keyword;
@@ -296,7 +298,7 @@ router.get("/searchkeyword", async function (req, res) {
     console.log("keyword : ", keyword);
     let searchQuery = "select * from paycoq.products where pdname like ? where userid = 'qweqwe'";
     // console.log(serachQuery);
-    let [rows, fields] = await db.query(searchQuery,keyword);
+    let [rows, fields] = await db.query(searchQuery, keyword);
     console.log("rows : ", rows);
     res.status(200).json(rows);
 });
@@ -307,7 +309,7 @@ router.get("/searchkeyword", async function (req, res) {
     console.log("keyword : ", keyword);
     let searchQuery = "select * from paycoq.products where pdname like ? where userid = 'qweqwe'";
     // console.log(serachQuery);
-    let [rows, fields] = await db.query(searchQuery,keyword);
+    let [rows, fields] = await db.query(searchQuery, keyword);
     console.log("rows : ", rows);
     res.status(200).json(rows);
 });
