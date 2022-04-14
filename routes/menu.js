@@ -214,12 +214,12 @@ router.post("/deleteproducts", async function (req, res) {
         console.log("rows : ",  rows)
         console.log("delimage : ",  delimage)
 
-        // let abspath = path.resolve("uploads", "pdimage")
-        // let target = abspath.concat("/" + delimage )
-        // fs.unlink(target, function (err) {
-        //     console.log((err))
-        // })
-        // await db.query(deleteQuery, delarr[i]);
+        let abspath = path.resolve("uploads", "pdimage")
+        let target = abspath.concat("/" + delimage )
+        fs.unlink(target, function (err) {
+            console.log((err))
+        })
+        await db.query(deleteQuery, delarr[i]);
     }
 
 
