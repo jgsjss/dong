@@ -1098,307 +1098,445 @@
       <Host>localhost</Host>
       <Plugin>unix_socket</Plugin>
     </user>
-    <table id="333" parent="329" name="board">
+    <table id="333" parent="327" name="board">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="334" parent="329" name="categories"/>
-    <table id="335" parent="329" name="option"/>
-    <table id="336" parent="329" name="products"/>
-    <table id="337" parent="329" name="user"/>
-    <column id="338" parent="333" name="num">
+    <table id="334" parent="327" name="member">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <table id="335" parent="327" name="product">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <table id="336" parent="329" name="board">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <table id="337" parent="329" name="categories"/>
+    <table id="338" parent="329" name="option"/>
+    <table id="339" parent="329" name="products"/>
+    <table id="340" parent="329" name="user"/>
+    <column id="341" parent="333" name="num">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="339" parent="333" name="id">
+    <column id="342" parent="333" name="id">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="340" parent="333" name="name">
+    <column id="343" parent="333" name="name">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="341" parent="333" name="subject">
+    <column id="344" parent="333" name="subject">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="342" parent="333" name="content">
+    <column id="345" parent="333" name="content">
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="343" parent="333" name="regist_day">
+    <column id="346" parent="333" name="regist_day">
       <DataType>varchar(30)|0s</DataType>
       <Position>6</Position>
     </column>
-    <column id="344" parent="333" name="hit">
+    <column id="347" parent="333" name="hit">
       <DataType>int(11)|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="345" parent="333" name="ip">
+    <column id="348" parent="333" name="ip">
       <DataType>varchar(20)|0s</DataType>
       <Position>8</Position>
     </column>
-    <key id="346" parent="333" name="PRIMARY">
+    <key id="349" parent="333" name="PRIMARY">
       <ColNames>num</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="347" parent="334" name="ctnum">
+    <column id="350" parent="334" name="id">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="351" parent="334" name="password">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="352" parent="334" name="name">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="353" parent="334" name="gender">
+      <DataType>varchar(4)|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="354" parent="334" name="birth">
+      <DataType>varchar(10)|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <column id="355" parent="334" name="mail">
+      <DataType>varchar(30)|0s</DataType>
+      <Position>6</Position>
+    </column>
+    <column id="356" parent="334" name="phone">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>7</Position>
+    </column>
+    <column id="357" parent="334" name="address">
+      <DataType>varchar(90)|0s</DataType>
+      <Position>8</Position>
+    </column>
+    <column id="358" parent="334" name="regist_day">
+      <DataType>varchar(50)|0s</DataType>
+      <Position>9</Position>
+    </column>
+    <key id="359" parent="334" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="360" parent="335" name="p_id">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="361" parent="335" name="p_name">
+      <DataType>varchar(10)|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="362" parent="335" name="p_unitPrice">
+      <DataType>int(11)|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="363" parent="335" name="p_description">
+      <DataType>text|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="364" parent="335" name="p_category">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <column id="365" parent="335" name="p_manufacturer">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>6</Position>
+    </column>
+    <column id="366" parent="335" name="p_unitsInStock">
+      <DataType>mediumtext|0s</DataType>
+      <Position>7</Position>
+    </column>
+    <column id="367" parent="335" name="p_condition">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>8</Position>
+    </column>
+    <column id="368" parent="335" name="p_fileName">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>9</Position>
+    </column>
+    <key id="369" parent="335" name="PRIMARY">
+      <ColNames>p_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="370" parent="336" name="num">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="348" parent="334" name="pdcategory">
+    <column id="371" parent="336" name="id">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="372" parent="336" name="name">
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="373" parent="336" name="subject">
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="374" parent="336" name="content">
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="375" parent="336" name="regist_day">
+      <DataType>varchar(30)|0s</DataType>
+      <Position>6</Position>
+    </column>
+    <column id="376" parent="336" name="hit">
+      <DataType>int(11)|0s</DataType>
+      <Position>7</Position>
+    </column>
+    <column id="377" parent="336" name="ip">
+      <DataType>varchar(20)|0s</DataType>
+      <Position>8</Position>
+    </column>
+    <key id="378" parent="336" name="PRIMARY">
+      <ColNames>num</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="379" parent="337" name="ctnum">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="380" parent="337" name="pdcategory">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="349" parent="334" name="description">
+    <column id="381" parent="337" name="description">
       <DataType>varchar(200)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="350" parent="334" name="status">
+    <column id="382" parent="337" name="status">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="351" parent="334" name="shopcode">
+    <column id="383" parent="337" name="shopcode">
       <DataType>int(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="352" parent="334" name="categories_ctnum_uindex">
+    <index id="384" parent="337" name="categories_ctnum_uindex">
       <ColNames>ctnum</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="353" parent="334" name="categories_ctnum_uindex">
+    <key id="385" parent="337" name="categories_ctnum_uindex">
       <ColNames>ctnum</ColNames>
       <UnderlyingIndexName>categories_ctnum_uindex</UnderlyingIndexName>
     </key>
-    <column id="354" parent="335" name="opnum">
+    <column id="386" parent="338" name="opnum">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="355" parent="335" name="opname">
+    <column id="387" parent="338" name="opname">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="356" parent="335" name="opprice">
+    <column id="388" parent="338" name="opprice">
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="357" parent="335" name="pdnum">
+    <column id="389" parent="338" name="pdnum">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="358" parent="335" name="option_products_pdnum_fk">
+    <foreign-key id="390" parent="338" name="option_products_pdnum_fk">
       <ColNames>pdnum</ColNames>
       <RefColNames>pdnum</RefColNames>
       <RefTableName>products</RefTableName>
     </foreign-key>
-    <index id="359" parent="335" name="option_opnum_uindex">
+    <index id="391" parent="338" name="option_opnum_uindex">
       <ColNames>opnum</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="360" parent="335" name="option_opname_uindex">
+    <index id="392" parent="338" name="option_opname_uindex">
       <ColNames>opname</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="361" parent="335" name="option_products_pdnum_fk">
+    <index id="393" parent="338" name="option_products_pdnum_fk">
       <ColNames>pdnum</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="362" parent="335" name="PRIMARY">
+    <key id="394" parent="338" name="PRIMARY">
       <ColNames>opname</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="363" parent="335" name="option_opnum_uindex">
+    <key id="395" parent="338" name="option_opnum_uindex">
       <ColNames>opnum</ColNames>
       <UnderlyingIndexName>option_opnum_uindex</UnderlyingIndexName>
     </key>
-    <key id="364" parent="335" name="option_opname_uindex">
+    <key id="396" parent="338" name="option_opname_uindex">
       <ColNames>opname</ColNames>
       <UnderlyingIndexName>option_opname_uindex</UnderlyingIndexName>
     </key>
-    <column id="365" parent="336" name="pdnum">
+    <column id="397" parent="339" name="pdnum">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="366" parent="336" name="pdname">
+    <column id="398" parent="339" name="pdname">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="367" parent="336" name="ctnum">
+    <column id="399" parent="339" name="ctnum">
       <DataType>int(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="368" parent="336" name="price">
+    <column id="400" parent="339" name="price">
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="369" parent="336" name="pddescription">
+    <column id="401" parent="339" name="pddescription">
       <DataType>varchar(150)|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="370" parent="336" name="shopcode">
+    <column id="402" parent="339" name="shopcode">
       <DataType>int(20)|0s</DataType>
       <Position>6</Position>
     </column>
-    <column id="371" parent="336" name="pdoption1">
+    <column id="403" parent="339" name="pdoption1">
       <DataType>varchar(50)|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="372" parent="336" name="pdoption2">
+    <column id="404" parent="339" name="pdoption2">
       <DataType>varchar(50)|0s</DataType>
       <Position>8</Position>
     </column>
-    <column id="373" parent="336" name="userid">
+    <column id="405" parent="339" name="userid">
       <DataType>varchar(10)|0s</DataType>
       <Position>9</Position>
     </column>
-    <column id="374" parent="336" name="pdimage">
+    <column id="406" parent="339" name="pdimage">
       <DataType>varchar(100)|0s</DataType>
       <Position>10</Position>
     </column>
-    <column id="375" parent="336" name="status">
+    <column id="407" parent="339" name="status">
       <DataType>varchar(20)|0s</DataType>
       <Position>11</Position>
     </column>
-    <foreign-key id="376" parent="336" name="products___ctnum_fk">
+    <foreign-key id="408" parent="339" name="products___ctnum_fk">
       <ColNames>ctnum</ColNames>
       <RefColNames>ctnum</RefColNames>
       <RefTableName>categories</RefTableName>
     </foreign-key>
-    <foreign-key id="377" parent="336" name="products_user_userid_fk">
+    <foreign-key id="409" parent="339" name="products_user_userid_fk">
       <ColNames>userid</ColNames>
       <RefColNames>userid</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="378" parent="336" name="products_pdnum_uindex">
+    <index id="410" parent="339" name="products_pdnum_uindex">
       <ColNames>pdnum</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="379" parent="336" name="products_pdoption_uindex">
+    <index id="411" parent="339" name="products_pdoption_uindex">
       <ColNames>pdoption1</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="380" parent="336" name="products___ctnum_fk">
+    <index id="412" parent="339" name="products___ctnum_fk">
       <ColNames>ctnum</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="381" parent="336" name="products_user_userid_fk">
+    <index id="413" parent="339" name="products_user_userid_fk">
       <ColNames>userid</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="382" parent="336" name="PRIMARY">
+    <key id="414" parent="339" name="PRIMARY">
       <ColNames>pdnum</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="383" parent="336" name="products_pdnum_uindex">
+    <key id="415" parent="339" name="products_pdnum_uindex">
       <ColNames>pdnum</ColNames>
       <UnderlyingIndexName>products_pdnum_uindex</UnderlyingIndexName>
     </key>
-    <key id="384" parent="336" name="products_pdoption_uindex">
+    <key id="416" parent="339" name="products_pdoption_uindex">
       <ColNames>pdoption1</ColNames>
       <UnderlyingIndexName>products_pdoption_uindex</UnderlyingIndexName>
     </key>
-    <column id="385" parent="337" name="usernum">
+    <column id="417" parent="340" name="usernum">
       <DataType>int(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="386" parent="337" name="userid">
+    <column id="418" parent="340" name="userid">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="387" parent="337" name="userpw">
+    <column id="419" parent="340" name="userpw">
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="388" parent="337" name="username">
+    <column id="420" parent="340" name="username">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="389" parent="337" name="biznum">
+    <column id="421" parent="340" name="biznum">
       <DataType>varchar(10)|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="390" parent="337" name="phnum">
+    <column id="422" parent="340" name="phnum">
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="391" parent="337" name="bizaddr1">
+    <column id="423" parent="340" name="bizaddr1">
       <DataType>varchar(50)|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="392" parent="337" name="bizaddr2">
+    <column id="424" parent="340" name="bizaddr2">
       <DataType>varchar(50)|0s</DataType>
       <Position>8</Position>
     </column>
-    <column id="393" parent="337" name="bizzip">
+    <column id="425" parent="340" name="bizzip">
       <DataType>varchar(10)|0s</DataType>
       <Position>9</Position>
     </column>
-    <column id="394" parent="337" name="mgname">
+    <column id="426" parent="340" name="mgname">
       <DataType>varchar(10)|0s</DataType>
       <Position>10</Position>
     </column>
-    <column id="395" parent="337" name="mgphnum">
+    <column id="427" parent="340" name="mgphnum">
       <DataType>varchar(15)|0s</DataType>
       <Position>11</Position>
     </column>
-    <column id="396" parent="337" name="mgemail">
+    <column id="428" parent="340" name="mgemail">
       <DataType>varchar(50)|0s</DataType>
       <Position>12</Position>
     </column>
-    <column id="397" parent="337" name="selected">
+    <column id="429" parent="340" name="selected">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>13</Position>
     </column>
-    <column id="398" parent="337" name="shopname">
+    <column id="430" parent="340" name="shopname">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>14</Position>
     </column>
-    <column id="399" parent="337" name="shopphnum">
+    <column id="431" parent="340" name="shopphnum">
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>15</Position>
     </column>
-    <column id="400" parent="337" name="userdate">
+    <column id="432" parent="340" name="userdate">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>current_timestamp()</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>16</Position>
     </column>
-    <column id="401" parent="337" name="inprocess">
+    <column id="433" parent="340" name="inprocess">
       <Comment>0 - inprocess&#xd;
 1 - signup&#xd;
 </Comment>
@@ -1406,45 +1544,45 @@
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <Position>17</Position>
     </column>
-    <column id="402" parent="337" name="refreshToken">
+    <column id="434" parent="340" name="refreshToken">
       <DataType>varchar(200)|0s</DataType>
       <Position>18</Position>
     </column>
-    <column id="403" parent="337" name="shopcode">
+    <column id="435" parent="340" name="shopcode">
       <DataType>int(20)|0s</DataType>
       <Position>19</Position>
     </column>
-    <column id="404" parent="337" name="userrole">
+    <column id="436" parent="340" name="userrole">
       <Comment>0번이 사업주 1번 점장 2번 매니저 3번 알바생</Comment>
       <DataType>int(2)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>20</Position>
     </column>
-    <column id="405" parent="337" name="etc">
+    <column id="437" parent="340" name="etc">
       <DataType>varchar(30)|0s</DataType>
       <Position>21</Position>
     </column>
-    <foreign-key id="406" parent="337" name="user_user_usernum_fk">
+    <foreign-key id="438" parent="340" name="user_user_usernum_fk">
       <ColNames>shopcode</ColNames>
       <RefColNames>usernum</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="407" parent="337" name="user_usernum_uindex">
+    <index id="439" parent="340" name="user_usernum_uindex">
       <ColNames>usernum</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="408" parent="337" name="user_user_usernum_fk">
+    <index id="440" parent="340" name="user_user_usernum_fk">
       <ColNames>shopcode</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="409" parent="337" name="PRIMARY">
+    <key id="441" parent="340" name="PRIMARY">
       <ColNames>userid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="410" parent="337" name="user_usernum_uindex">
+    <key id="442" parent="340" name="user_usernum_uindex">
       <ColNames>usernum</ColNames>
       <UnderlyingIndexName>user_usernum_uindex</UnderlyingIndexName>
     </key>
